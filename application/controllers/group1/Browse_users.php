@@ -17,7 +17,7 @@ class Browse_users extends CI_Controller {
         echo 'browse_users controller';
                 $this->load->view('group1/templates/header');
 				$this->load->view('group1/templates/navbar/navbar');
-                // call showBrowseUsers here to set the correct view
+                $this->load->view('group1/browse/user_table');// call showBrowseUsers here to set the correct view
 				$this->load->view('group1/templates/navbar/navbottom'); 
 				$this->load->view('group1/templates/footer');
     }

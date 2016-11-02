@@ -57,8 +57,20 @@ class User_model extends CI_Model {
 		$this->db->from('users');
 		$this->db->where('user_id', $this->session->userID);
 		$query = $this->db->get()->result();
-		
+
 		return $query[0]->permission;
+	}
+
+
+	public function getUserInfo(){
+
+		$this->db->select('first_name, middle_initial, last_name, gender, email, birth_date, street, city, state, zip, phone_number_1, phone_number_2, misc_duties, notes');
+		$this->db->from('users');
+		$this->db->where('user_id', $this->session->userID);
+		$query = $this->db->get()->result();
+
+		return  $query[0];
+
 	}
 
 }

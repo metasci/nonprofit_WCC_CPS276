@@ -91,9 +91,14 @@ class Welcome extends CI_Controller {
 	//*******
 	public function showDash($perm, $button = NULL){
 		$permArray = str_split($perm);
+		// $userInfo = $this->user_model->getUserInfo();
+
+		$data =  (array)$this->user_model->getUserInfo();
+		
+		print_r($data);
 
 		// render user $data to display in user_dash
-		$this->load->view('group1/dashboard/user_dash');
+		$this->load->view('group1/dashboard/user_dash', $data);
 		
 		$data['dispButton'] = $button;
 

@@ -9,6 +9,7 @@
         width: 100%;
     }
     .box {
+        // background: blue;
         padding: 0;
     }
 </style>
