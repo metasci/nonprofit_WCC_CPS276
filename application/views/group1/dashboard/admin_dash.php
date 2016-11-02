@@ -15,8 +15,7 @@
                     <div class="panel-body">
                         <button class="btn btn-primary">Add Duty</button>
                         
-                        <form action="." method="post" style="display: inline-block">
-                            <input type="hidden" name="selection" value="browse_duties">
+                        <form action="./index.php/browse_duties" method="post" style="display: inline-block">
                             <button type="submit" class="btn btn-info">Browse Duties</button>
                         </form>
 
@@ -34,6 +33,7 @@
                     </div>
                 </div>
                 <!-- Duties Panel END -->
+
                 <!-- Users Panel START -->
                 <div style="padding:0;" class="panel panel-default col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="panel-heading">
@@ -42,9 +42,8 @@
                     <div class="panel-body">
                         
                         <button class="btn btn-primary" name="selection" data-toggle="modal" data-target=".bs-example-modal-lg" id="add_user">Add User</button>        
-                        <!-- create 2 modals for these buttons as well -->
-                        <form action="." method="post" style="display: inline-block">
-                            <input type="hidden" name="selection" value="browse_users">
+                        
+                        <form action="./index.php/browse_users" method="post" style="display: inline-block">
                             <button type="submit" class="btn btn-info">Browse Users</button>
                         </form>
                         <br><br>
@@ -75,12 +74,3 @@
     </div>
   </div>
 </div>
-
-<script>
-$(document).ready(function(){
-    if($('.clickBait').attr('id') == 1){
-        // click add user button
-        $('#add_user').trigger('click');
-    }
-});
-</script>

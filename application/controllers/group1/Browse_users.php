@@ -26,4 +26,16 @@ class Browse_users extends CI_Controller {
     public function showBrowseUsers() {
         
     }
+
+
+    public function userSettings(){
+        // 'Account Settings' button on user_dash
+        echo 'Account Settings controller';
+
+        $this->load->view('group1/templates/header');
+        $this->load->view('group1/templates/navbar/navbar');
+        // call showBrowseUsers here to set the correct view
+        $this->load->view('group1/templates/navbar/navbottom'); 
+        $this->load->view('group1/templates/footer');
+    }
 }

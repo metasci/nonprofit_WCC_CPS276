@@ -3,13 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 	
-    public $clearance = '1111'; // maybe place this in the constructor -> set to permission number in sessions
-	
 	public function __construct(){
         parent::__construct(); 
         $this->load->model('group1_models/user_model'); // I can now access the User_model class ($this->User_model)
-    }
-
+		
+		$this->clearance = $this->user_model->getPermission(); // grab the users permission from the db and store it in clearance
+	}
+	
 
 	/**
 	 * Index Page for this controller.
@@ -30,8 +30,7 @@ class Welcome extends CI_Controller {
 							// "Welcome, John Doe!"
 	{
 		// check sessions for login credentials 
-		if(true){ // if logged in show dashboard
-
+		if($this->session->logged_in){ // if logged in show dashboard
 
 				$this->load->view('group1/templates/header');
 				$this->load->view('group1/templates/navbar/navbar');
@@ -39,13 +38,11 @@ class Welcome extends CI_Controller {
 				$this->load->view('group1/templates/navbar/navbottom'); 
 				$this->load->view('group1/templates/footer');
 
-		    } else { // else show log in view
-        
-				$this->load->view('group1/templates/header');
-				$this->load->view('group1/login');
-				$this->load->view('group1/templates/footer');
-        
-		    }
+		} else { // else redirect to Login_controller
+
+			header('Location: login');
+	
+		}
 
 	}
 
@@ -57,8 +54,7 @@ class Welcome extends CI_Controller {
 				$this->showDash($this->clearance);
 				break;
             case 'register':
-				$this->load->helper('form');
-
+				
 				// how do these work? if I remove the 'required' attribute from the
 				$this->form_validation->set_rules('fname', 'First Name', 'required');
 				$this->form_validation->set_rules('lname', 'Last Name', 'required');
@@ -78,24 +74,12 @@ class Welcome extends CI_Controller {
 				} else {
                 	$this->registerUser($data);
 				}
-
-
-
-                
 				break;
             case 'courses': // group 3
                 // include 'courses';
                 break;
             case 'gradebook': // group 4
                 // include 'gradebook';
-                break;
-            case 'browse_users':
-                // redirect to other controller/ add route
-				header('Location: index.php/browse_users');
-                break;
-            case 'browse_duties':
-                // redirect to other controller/ add route
-				header('Location: index.php/browse_duties');
                 break;
             default:
 				$this->showDash($this->clearance); // put actual user permission in header_register_callback
@@ -167,9 +151,10 @@ class Welcome extends CI_Controller {
 
 	//*********
 	public function showDependentReg($data){
-
+			//
 			$this->load->view('group1/registration/depend_add_top', $data);
-			
+			//
+
 			if($this->input->post('add_admin'))
 				$this->load->view('group1/registration/dependents/add_admin');
 
@@ -184,8 +169,9 @@ class Welcome extends CI_Controller {
 			if($this->input->post('add_student'))
 				$this->load->view('group1/registration/dependents/add_student');
 				
-			
+			//
 			$this->load->view('group1/registration/depend_add_bottom');
+			//
 	}
 	// ******
 

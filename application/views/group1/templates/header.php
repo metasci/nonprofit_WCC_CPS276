@@ -14,9 +14,6 @@
                 width: 100%;
             }
         </style>
-        <!-- javascript necessary for navbar functionality -->
-        <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
-        
     </head>
     <body>
     

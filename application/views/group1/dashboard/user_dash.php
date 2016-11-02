@@ -44,8 +44,9 @@
                 </div>
             </div>
         </div>
-        <div class="panel-footer">
-            <button class="btn btn-primary">Change Password</button>
-        </div>
-
+        <form action="./index.php/account_settings" method="post">
+            <div class="panel-footer">
+                <button class="btn btn-warning">Account Settings</button>
+            </div>
+        </form>
     </div>
