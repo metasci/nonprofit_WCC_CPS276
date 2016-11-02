@@ -14,27 +14,32 @@ class Browse_users extends CI_Controller {
         // add if statement 
         // if admin continue
         // else redirect to dash
-        echo 'browse_users controller';
-                $this->load->view('group1/templates/header');
-				$this->load->view('group1/templates/navbar/navbar');
-                $this->load->view('group1/browse/user_table');// call showBrowseUsers here to set the correct view
-				$this->load->view('group1/templates/navbar/navbottom'); 
-				$this->load->view('group1/templates/footer');
-    }
+        // print_r($this->input->post());
+        $data['user_array'] = (array)$this->user_model->filterUsers($this->input->post());
 
-
-    public function showBrowseUsers() {
-        
-    }
-
-
-    public function userSettings(){
-        // 'Account Settings' button on user_dash
-        echo 'Account Settings controller';
 
         $this->load->view('group1/templates/header');
         $this->load->view('group1/templates/navbar/navbar');
-        // call showBrowseUsers here to set the correct view
+        $this->load->view('group1/browse/user_table', $data);
+        $this->load->view('group1/templates/navbar/navbottom'); 
+        $this->load->view('group1/templates/footer');
+    }
+
+
+
+
+    public function userProfile($userID = NULL){
+        // 'Account Settings' button on user_dash
+        // echo 'userProfile controller';
+
+        $user_id = $userID != NULL? $userID:$this->input->post('user_id');
+
+        $data['user_array'] = (array)$this->user_model->getAllUserInfo($user_id);// get all user info based on posted user_id
+        $data['current_user_clearance'] = str_split($this->user_model->getPermission($this->session->userID));
+        // print_r($data['current_user_clearance']);
+        $this->load->view('group1/templates/header');
+        $this->load->view('group1/templates/navbar/navbar');
+        $this->load->view('group1/browse/user_profile', $data); // load user_profile page
         $this->load->view('group1/templates/navbar/navbottom'); 
         $this->load->view('group1/templates/footer');
     }

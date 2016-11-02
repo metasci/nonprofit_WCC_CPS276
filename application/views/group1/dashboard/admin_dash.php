@@ -43,7 +43,7 @@
                         
                         <button class="btn btn-primary" name="selection" data-toggle="modal" data-target=".bs-example-modal-lg" id="add_user">Add User</button>        
                         
-                        <form action="./index.php/browse_users" method="post" style="display: inline-block">
+                        <form action="./browse_users" method="post" style="display: inline-block">
                             <button type="submit" class="btn btn-info">Browse Users</button>
                         </form>
                         <br><br>

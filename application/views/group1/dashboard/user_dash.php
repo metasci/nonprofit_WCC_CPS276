@@ -9,35 +9,45 @@
                     <table class="table table-user-information">
                         <tbody>
                         <tr>
-                            <td>Gender:</td>
-                            <td><?php echo $gender? 'Female':'Male'; ?></td>
+                            <td>User ID:</td>
+                            <td><?php echo $user_id ?></td>
+                        </tr>
+                        <tr>
+                            <td>Status:</td>
+                            <td>
+                                <?php 
+                                     
+                                    if($permission[0] == 1){
+                                        echo 'Administrator<br>';
+                                    }
+                                    if($permission[1] == 1){
+                                        echo 'Teacher<br>';
+                                    }
+                                    if($permission[2] == 1){
+                                        echo 'Parent<br>';
+                                    }
+                                    if($permission[3]){
+                                        echo 'Student';
+                                    }
+
+                                ?>
+                            </td>
                         </tr>
                         <tr>
                             <td>Email:</td>
                             <td><?php echo $email ?></td>
-                        </tr>
-                        <tr>
-                            <td>Date of Birth</td>
-                            <td><?php echo date_format(date_create($birth_date), 'M d, Y') ?></td>
-                        </tr>
-
-                        <tr>
-                        <tr>
-                            <td>Address</td>
-                            <td><?php echo $street.', '.$city.', '.$state.' '.$zip ?></td>
-                        </tr>
-                        <tr>
-                        <td>Phone Number 1<br><br>Phone Number 2</td>
-                        <td><?php echo $phone_number_1 ?><br><br><?php echo $phone_number_2 ?></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <form action="./index.php/account_settings" method="post">
             <div class="panel-footer">
-                <button class="btn btn-info">My Info</button>
+                <?php echo form_open('details')?> <!-- route to userProfile page -->
+                    
+                    <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                    <button type="submit" class="btn btn-primary">Details</button>
+                    
+                <?php echo form_close() ?>
             </div>
-        </form>
     </div>

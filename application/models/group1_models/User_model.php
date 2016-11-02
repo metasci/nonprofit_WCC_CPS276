@@ -51,26 +51,99 @@ class User_model extends CI_Model {
 		}
 	}
 
-	public function getPermission(){
+	// gets permission associated with $userID
+	public function getPermission($userID){
 
 		$this->db->select('permission');
 		$this->db->from('users');
-		$this->db->where('user_id', $this->session->userID);
+		$this->db->where('user_id', $userID);
 		$query = $this->db->get()->result();
 
 		return $query[0]->permission;
 	}
 
+	// gets info for userID 
+	public function getUserInfo($userID){
 
-	public function getUserInfo(){
-
-		$this->db->select('first_name, middle_initial, last_name, gender, email, birth_date, street, city, state, zip, phone_number_1, phone_number_2, misc_duties, notes');
+		$this->db->select('user_id, first_name, middle_initial, last_name, gender, email, birth_date, street, city, state, zip, phone_number_1, phone_number_2, misc_duties, notes');
 		$this->db->from('users');
-		$this->db->where('user_id', $this->session->userID);
+		$this->db->where('user_id', $userID);
 		$query = $this->db->get()->result();
-
+		
 		return  $query[0];
 
+	}
+
+	
+	// get all user info (user profile and settings pages)
+	public function getAllUserInfo($userID){
+
+		// going to need to do a join to get family_id & misc_duties
+		$this->db->where('user_id', $userID);
+		$query = $this->db->get('users')->result();
+
+		print_r($query);
+		return  $query[0];
+	}
+
+
+	// gets info for all users based on filter options
+	// for use on browse_users page
+	public function filterUsers($filterInfo = NULL){
+		//return array of all users to be stored in $data and sent to view
+		
+		$this->db->select('user_id, first_name, last_name, permission, gender, city');
+		$this->db->from('users');
+		
+		if($filterInfo){
+			// use $this->db->where to search based on filter
+			// echo 'Filter Info';
+			// print_r($filterInfo);
+			
+			if($filterInfo['first_name']){
+				$filter['first_name'] = $filterInfo['first_name'];
+			}
+
+			if($filterInfo['last_name']){
+				$filter['last_name'] = $filterInfo['last_name'];
+			}
+
+
+			// requires a table join
+			// if($filterInfo->family_id){
+			// 	$filter['family_id'] = $filterInfo->family_id;
+			// }
+
+			if($filterInfo['user_id']){
+				$filter['user_id'] = $filterInfo['user_id'];
+			}
+
+			if($filterInfo['city']){
+				$filter['city'] = $filterInfo['city'];
+			}
+
+			if($filterInfo['birth_date']){
+				$filter['birth_date'] = $filterInfo['birth_date'];
+			}
+
+			// this will need some manipulation
+			// if($filterInfo['birth_month']){
+			// 	$filter['birth_month'] = $filterInfo['birth_month'];
+			// }
+
+
+			$this->db->where($filter);
+			
+		}
+		
+		$query = $this->db->get()->result();
+		
+		// convert array of objects to array of arrays
+		foreach($query as &$user){
+			$user = (array)$user;
+		}
+
+		return $query;
 	}
 
 }

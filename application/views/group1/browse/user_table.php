@@ -130,14 +130,42 @@ birth_date (year, month, day) ex. show me all kids born in december || born in 2
             </thead>
             <tbody>
                 <!-- loop through results -->
+                <?php foreach($user_array as $userInfo) : ?>
+                
+
                 <tr>
-                    <td>User ID</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Status</td> <!-- admin, teacher, parent, student -->
-                    <td>Gender</td>
-                    <td>City</td>
+                    <td><?php echo $userInfo['user_id'] ?></td>
+                    <td><?php echo $userInfo['first_name'] ?></td>
+                    <td><?php echo $userInfo['last_name'] ?></td>
+                    <td><?php 
+                    
+                       $permissionArray = str_split($userInfo['permission']); 
+                       if($permissionArray[0] == 1){
+                           echo 'Administrator<br>';
+                       }
+                       if($permissionArray[1] == 1){
+                           echo 'Teacher<br>';
+                       }
+                       if($permissionArray[2] == 1){
+                           echo 'Parent<br>';
+                       }
+                       if($permissionArray[3]){
+                           echo 'Student';
+                       }
+
+                    ?></td>
+                    <td><?php echo $userInfo['gender'] ?></td>
+                    <td><?php echo $userInfo['city'] ?></td>
+                    <td>
+                        <?php echo form_open('details')?> <!-- route to userProfile page -->
+                            <input type="hidden" name="user_id" value="<?php echo $userInfo['user_id'] ?>">
+                            <button type="submit" class="btn btn-primary">Details</button>
+                        <?php echo form_close() ?>
+                    <td>
                 </tr>
+                
+                <?php endforeach; ?>
+                
             </tbody>
         </table>
 

@@ -7,7 +7,7 @@ class Welcome extends CI_Controller {
         parent::__construct(); 
         $this->load->model('group1_models/user_model'); // I can now access the User_model class ($this->User_model)
 		
-		$this->clearance = $this->user_model->getPermission(); // grab the users permission from the db and store it in clearance
+		$this->clearance = $this->user_model->getPermission($this->session->userID); // grab the users permission from the db and store it in clearance
 	}
 	
 
@@ -91,12 +91,11 @@ class Welcome extends CI_Controller {
 	//*******
 	public function showDash($perm, $button = NULL){
 		$permArray = str_split($perm);
-		// $userInfo = $this->user_model->getUserInfo();
 
-		$data =  (array)$this->user_model->getUserInfo();
+		$data =  (array)$this->user_model->getUserInfo($this->session->userID);
+		$data['permission'] = $permArray;
 		
-		print_r($data);
-
+		// print_r($data);
 		// render user $data to display in user_dash
 		$this->load->view('group1/dashboard/user_dash', $data);
 		
