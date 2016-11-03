@@ -49,6 +49,9 @@ class Welcome extends CI_Controller {
 	//*******
 	public function pickPage($selection = NULL){
 		// echo $selection;
+
+		$this->load->helper('form');
+
 		switch($selection){
 			case 'dash':
 				$this->showDash($this->clearance);
@@ -94,7 +97,8 @@ class Welcome extends CI_Controller {
 
 		$data =  (array)$this->user_model->getUserInfo($this->session->userID);
 		$data['permission'] = $permArray;
-		
+		$data['registration_edit'] = false;
+
 		// print_r($data);
 		// render user $data to display in user_dash
 		$this->load->view('group1/dashboard/user_dash', $data);
@@ -131,9 +135,10 @@ class Welcome extends CI_Controller {
 			
 		} else if($this->input->post('action') == 'addUser') {
 			//----------------------------------------
-						
-			$this->form_validation->set_rules('email1', 'E-mail', 'required|trim|valid_email');
-
+			if(isset($data['post']['add_admin']) || isset($data['post']['add_Teacher']) || isset($data['post']['add_parent'])){
+				$this->form_validation->set_rules('email1', 'E-mail', 'required|trim|valid_email');
+			}			
+			
 			if($this->form_validation->run() == false){
 				// invalid form entry
 				$this->showDependentReg($data);

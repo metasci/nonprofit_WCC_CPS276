@@ -82,7 +82,7 @@ class User_model extends CI_Model {
 		$this->db->where('user_id', $userID);
 		$query = $this->db->get('users')->result();
 
-		print_r($query);
+		// print_r($query);
 		return  $query[0];
 	}
 
@@ -144,6 +144,28 @@ class User_model extends CI_Model {
 		}
 
 		return $query;
+	}
+
+
+	public function updateUserInfo($post){
+		$data = array(
+			'first_name' => $post['fname'],
+			'middle_initial' => $post['mid_init'],
+			'last_name' => $post['lname'],
+			'street' => $post['str_addr'],
+			'city' => $post['city'],
+			'state' => $post['which_state'],
+			'permission' => $this->buildPermission(isset($post['add_admin'])? $post['add_admin']: 0, isset($post['add_teacher'])? $post['add_teacher']: 0, isset($post['add_parent'])? $post['add_parent']: 0, isset($post['add_student'])? $post['add_student']: 0),
+			'zip' => $post['zip_code'],
+			'birth_date' => $post['birth_date'],
+			'gender' => $post['gender'],
+			'notes' => $post['notes'],	
+			'phone_number_1' => $post['phone1'],
+			'phone_number_2' => $post['phone2'],
+			'email' => $post['email1']
+        );
+		$this->db->where('user_id', $post['user_id']);
+		$this->db->update('users', $data);
 	}
 
 }

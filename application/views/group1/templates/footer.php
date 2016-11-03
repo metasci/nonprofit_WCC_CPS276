@@ -13,6 +13,16 @@
             $('#add_user').trigger('click');
         }
     });
+
+    
+    function checkPassword(theForm) {
+        if (theForm.passwd.value != theForm.verify_passwd.value){
+            alert('Those passwords don\'t match!');
+            return false;
+        } else {
+            return true;
+        }
+    }
     </script>
     </body>
 </html>

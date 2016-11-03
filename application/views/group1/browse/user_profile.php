@@ -69,21 +69,30 @@
                 </div>
             </div>
         </div>
-        <!-- if administrator show 'edit account' button -->
-        <?php if($current_user_clearance[0]): ?>
-            <form action="./details" method="post">
-                <div class="panel-footer">
+        <div class="panel-footer">
+            <!-- if administrator show 'edit account' button -->
+            <?php if($current_user_clearance[0]): ?>
+                <form action="./edit_account" method="post" style="display: inline-block">
+                    
+                    <input type="hidden" name="user_id" value="<?php echo $user_array['user_id'] ?>">
                     <button class="btn btn-warning">Edit Account</button>
-                </div>
-            </form>
-        <?php else : ?>
-        <!-- else show 'change password' button -->
-        
-            <form action="./details" method="post">
-                <div class="panel-footer">
-                    <button class="btn btn-warning">Change Password</button>
-                </div>
-            </form>
+                    
+                </form>
+                <form action="./delete_account" method="post" style="display: inline-block">
+                    
+                    <input type="hidden" name="user_id" value="<?php echo $user_array['user_id'] ?>">
+                    <button class="btn btn-danger">Delete Account</button>
+                    
+                </form>
+            <?php endif; ?>
+            <!-- else show 'change password' button -->
+            
+                <form action="./change_password" method="post" style="display: inline-block">
+                    
+                    <input type="hidden" name="user_id" value="<?php echo $user_array['user_id'] ?>">
+                    <button class="btn btn-info">Change Password</button>
+                    
+                </form>
 
-        <?php endif;?>
+        </div>
     </div>
