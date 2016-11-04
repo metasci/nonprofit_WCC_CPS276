@@ -93,12 +93,30 @@ class Browse_users extends CI_Controller {
 
     // displays the change password page for non-admin users
     public function changePassword(){
-        // old password // maybe but then the admin couldnt force change user passwords
-        // new password
-        // confirm new password 
-        // use javascript checkPassword function to confirm sameness
+        if($this->session->logged_in){ // if logged in show user profile
+            $data['user_id'] = $this->input->post('user_id');
+            
+            if($this->input->post('doit') == 1){
 
-        //submit
+                $this->user_model->updatePassword($this->input->post('user_id'), $this->input->post('passwd'));
+                
+                header('Location: '.base_url());
+
+            } else {    
+                
+
+                $this->load->view('group1/templates/header');
+                $this->load->view('group1/templates/navbar/navbar');
+                $this->load->view('group1/details/change_password', $data);// change password page
+                $this->load->view('group1/templates/navbar/navbottom'); 
+                $this->load->view('group1/templates/footer');
+                
+            }
+		} else { // else redirect to Login_controller
+
+			header('Location: login');
+	
+		}
     }
 
     public function confirmUserPassword($error = FALSE){
@@ -127,7 +145,7 @@ class Browse_users extends CI_Controller {
                 $data['error'] = $error;
                 $this->load->view('group1/templates/header');
                 $this->load->view('group1/templates/navbar/navbar');
-                $this->load->view('group1/admin/get_password', $data);// get admin password
+                $this->load->view('group1/details/get_password', $data);// get admin password
                 $this->load->view('group1/templates/navbar/navbottom'); 
                 $this->load->view('group1/templates/footer');
             }

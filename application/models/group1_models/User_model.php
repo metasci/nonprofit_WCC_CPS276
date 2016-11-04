@@ -185,4 +185,14 @@ class User_model extends CI_Model {
 		$this->db->where('user_id', $user_id);
 		$this->db->delete('users');
 	}
+
+
+	public function updatePassword($user_id, $password){
+		$data = array('password' => md5($password));
+
+		$this->db->where('user_id', $user_id);
+		$this->db->update('users', $data);
+
+
+	}
 }
