@@ -121,7 +121,6 @@ class Welcome extends CI_Controller {
 	}
 	// *******
 	
-
 	//*******
 	public function registerUser($data) {
 

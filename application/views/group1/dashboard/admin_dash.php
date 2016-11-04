@@ -13,8 +13,8 @@
                         Misc Duties
                     </div>
                     <div class="panel-body">
-                        <button class="btn btn-primary">Add Duty</button>
-                        
+                        <button class="btn btn-primary" name="selection" data-toggle="modal" data-target="#add_duty_modal" id="add_user">Add Duty</button>
+
                         <form action="./index.php/browse_duties" method="post" style="display: inline-block">
                             <button type="submit" class="btn btn-info">Browse Duties</button>
                         </form>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="panel-body">
                         
-                        <button class="btn btn-primary" name="selection" data-toggle="modal" data-target=".bs-example-modal-lg" id="add_user">Add User</button>        
+                        <button class="btn btn-primary" name="selection" data-toggle="modal" data-target="#add_user_modal" id="add_user">Add User</button>
                         
                         <form action="./browse_users" method="post" style="display: inline-block">
                             <button type="submit" class="btn btn-info">Browse Users</button>
@@ -67,10 +67,18 @@
         </div>
     </div>
 
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="add_user_modal" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div style="overflow: auto;" class="modal-content">
         <?php include('application/views/group1/registration/registration_main.php'); ?>
     </div>
   </div>
 </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" id="add_duty_modal" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div style="overflow: auto;" class="modal-content">
+                <?php include('application/views/group1/duties/duties_main.php'); ?>
+            </div>
+        </div>
+    </div>
