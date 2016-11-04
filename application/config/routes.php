@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['update_user_info'] = 'group1/browse_users/updateUser'; // on submission of admin edit user form
 $route['edit_account'] = 'group1/browse_users/editAccount';
-// $route['delete_account'] = // user_profile button for admin
+$route['confirm_user_password'] = 'group1/browse_users/confirmUserPassword'; // user_profile button for admin
 // $route['change_password'] = // user_profile button for non-admin
 $route['login'] = 'group1/login_controller';
 $route['login_validate'] = 'group1/login_controller/validateCredentials';

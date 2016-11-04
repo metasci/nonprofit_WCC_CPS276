@@ -168,4 +168,21 @@ class User_model extends CI_Model {
 		$this->db->update('users', $data);
 	}
 
+	public function getPassword($user_id){
+		$this->db->select('password');
+		$this->db->where('user_id', $user_id);
+
+		$query = $this->db->get('users')->result();
+
+		// print_r();
+		return $query[0]->password;
+	}
+
+
+
+
+	public function deleteUser($user_id){
+		$this->db->where('user_id', $user_id);
+		$this->db->delete('users');
+	}
 }
