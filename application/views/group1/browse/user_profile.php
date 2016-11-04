@@ -78,7 +78,7 @@
                     <button class="btn btn-warning">Edit Account</button>
                     
                 </form>
-                <form action="./confirm_user_password" method="post" style="display: inline-block" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                <form action="./delete_account" method="post" style="display: inline-block">
                     
                     <input type="hidden" name="user_id" value="<?php echo $user_array['user_id'] ?>">
                     <button class="btn btn-danger">Delete Account</button>
