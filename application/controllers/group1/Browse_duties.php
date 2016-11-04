@@ -2,8 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Browse_duties extends CI_Controller {
-    public $clearance = '1111'; // maybe place this in the constructor -> set to permission number in sessions
-	
+    
 	public function __construct(){
         parent::__construct(); 
         $this->load->model('group1_models/duties_model'); // I can now access the Duties_model class ($this->Duties_model)
