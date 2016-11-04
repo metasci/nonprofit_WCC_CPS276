@@ -50,9 +50,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+$route['update_duty'] = 'group1/browse_duties/updateDuty';
+$route['edit_duty'] = 'group1/browse_duties/editDuty';
+$route['filter_duties'] = 'group1/browse_duties/filterDuties';
+$route['get_duty/(:num)'] = 'group1/browse_duties/getDutyById/$1';
+$route["add_duty"] = 'group1/browse_duties/addDuty';
 $route['update_user_info'] = 'group1/browse_users/updateUser'; // on submission of admin edit user form
 $route['edit_account'] = 'group1/browse_users/editAccount';
-$route['confirm_user_password'] = 'group1/browse_users/confirmUserPassword'; // user_profile button for admin
+// $route['delete_account'] = // user_profile button for admin
 // $route['change_password'] = // user_profile button for non-admin
 $route['login'] = 'group1/login_controller';
 $route['login_validate'] = 'group1/login_controller/validateCredentials';

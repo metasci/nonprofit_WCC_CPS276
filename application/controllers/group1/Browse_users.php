@@ -93,54 +93,11 @@ class Browse_users extends CI_Controller {
 
     // displays the change password page for non-admin users
     public function changePassword(){
-        // old password // maybe but then the admin couldnt force change user passwords
+        // old password 
         // new password
         // confirm new password 
         // use javascript checkPassword function to confirm sameness
 
         //submit
     }
-
-    public function confirmUserPassword($error = FALSE){
-        $data['user_id'] = $this->input->post('user_id');
-
-        if($this->session->logged_in){ // if logged in show user profile
-         
-            if($this->input->post('doit') == 1){
-          
-
-                //if password entered == admin password 
-                if(md5($this->input->post('password')) == $this->user_model->getPassword($this->session->userID)){
-                    // delete user
-                    
-                    $this->user_model->deleteUser($this->input->post('user_id'));
-
-                    header('Location: '.base_url());
-
-                } else { // else redirect back to same page with red alert
-                    $_POST['doit'] = 0;    
-                    $this->confirmUserPassword(TRUE);
-                }
-                
-
-            } else {
-                $data['error'] = $error;
-                $this->load->view('group1/templates/header');
-                $this->load->view('group1/templates/navbar/navbar');
-                $this->load->view('group1/admin/get_password', $data);// get admin password
-                $this->load->view('group1/templates/navbar/navbottom'); 
-                $this->load->view('group1/templates/footer');
-            }
-
-		} else { // else redirect to Login_controller
-
-			header('Location: login');
-	
-		}
-
-        
-    }
-
 }
-
-
