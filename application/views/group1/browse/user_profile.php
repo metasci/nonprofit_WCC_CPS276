@@ -11,6 +11,12 @@
                         <td>User ID:</td>
                         <td><?php echo $user_array['user_id'] ?></td>
                     </tr>
+                    <?php if($user_array['family_id']): ?>
+                    <tr>
+                        <td>Family ID:</td>
+                        <td><?php echo $user_array['family_id']; ?></td>
+                    </tr>
+                    <?php endif; ?>
                     <tr>
                         <td>Status:</td>
                         <td>
@@ -58,7 +64,8 @@
                     </tr>
                     <tr>
                         <td>Assigned Duty ID's:</td>
-                        <td><?php echo $user_array['misc_duties'] ?></td>
+                        <!-- delete this GUI comment when it's done - placed for noticeability  -->
+                        <td><?php echo $user_array['misc_duties'] ?> // PUT HERE A BUTTON TO BROWSE DUTIES PAGE SHOWING ONLY THIS USERS DUTIES</td>
                     </tr>
                     <tr>
                         <td>Notes:</td>
