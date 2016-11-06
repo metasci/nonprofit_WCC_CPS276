@@ -154,7 +154,7 @@ birth_date (year, month, day) ex. show me all kids born in december || born in 2
                        }
 
                     ?></td>
-                    <td><?php echo $userInfo['gender'] ?></td>
+                    <td><?php echo $userInfo['gender']? 'Female':'Male' ?></td>
                     <td><?php echo $userInfo['city'] ?></td>
                     <td>
                         <?php echo form_open('details')?> <!-- route to userProfile page -->

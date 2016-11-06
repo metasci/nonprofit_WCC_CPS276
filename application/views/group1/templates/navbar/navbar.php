@@ -9,7 +9,6 @@
         width: 100%;
     }
     .box {
-        // background: blue;
         padding: 0;
     }
 </style>
@@ -48,7 +47,7 @@
                         <li><a href="#">Another action</a></li>
                         <li><a href="#">Something else here</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="log_out">Log Out</a></li>
                     </ul>
                     </li>
                 </ul>

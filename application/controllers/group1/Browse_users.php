@@ -8,17 +8,21 @@ class Browse_users extends CI_Controller
     {
         parent::__construct();
         $this->load->model('group1_models/user_model'); // I can now access the User_model class ($this->User_model)
+    
+		$this->clearance = $this->user_model->getPermission($this->session->userID);
     }
 
 
     public function index()
     {
+        $permArray = str_split($this->clearance);
+
         // add if statement 
         // if admin continue
-        if ($this->session->logged_in) { // if logged in show browse users
+        if ($this->session->logged_in && $permArray[0] == 1) { // if logged in show browse users
+
 
             $data['user_array'] = (array)$this->user_model->filterUsers($this->input->post());
-
 
             $this->load->view('group1/templates/header');
             $this->load->view('group1/templates/navbar/navbar');
@@ -164,4 +168,12 @@ class Browse_users extends CI_Controller
 
 
     }
+
+
+    public function logOut(){
+         $this->session->sess_destroy();
+         redirect('login');
+    }
 }
+
+

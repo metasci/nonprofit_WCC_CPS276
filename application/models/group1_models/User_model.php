@@ -109,29 +109,29 @@ class User_model extends CI_Model
             // echo 'Filter Info';
             // print_r($filterInfo);
 
-            if ($filterInfo['first_name']) {
+            if (isset($filterInfo['first_name'])) {
                 $filter['first_name'] = $filterInfo['first_name'];
             }
 
-            if ($filterInfo['last_name']) {
+            if (isset($filterInfo['last_name'])) {
                 $filter['last_name'] = $filterInfo['last_name'];
             }
 
 
             // requires a table join
-            // if($filterInfo->family_id){
-            // 	$filter['family_id'] = $filterInfo->family_id;
-            // }
+            if($filterInfo['family_id']){
+            	$filter['family_id'] = $filterInfo->family_id;
+            }
 
-            if ($filterInfo['user_id']) {
+            if (isset($filterInfo['user_id'])) {
                 $filter['user_id'] = $filterInfo['user_id'];
             }
 
-            if ($filterInfo['city']) {
+            if (isset($filterInfo['city'])) {
                 $filter['city'] = $filterInfo['city'];
             }
 
-            if ($filterInfo['birth_date']) {
+            if (isset($filterInfo['birth_date'])) {
                 $filter['birth_date'] = $filterInfo['birth_date'];
             }
 
@@ -195,11 +195,6 @@ class User_model extends CI_Model
         $this->db->where('user_id', $user_id);
         $this->db->delete('users');
     }
-
-	public function deleteUser($user_id){
-		$this->db->where('user_id', $user_id);
-		$this->db->delete('users');
-	}
 
 
 	public function updatePassword($user_id, $password){
