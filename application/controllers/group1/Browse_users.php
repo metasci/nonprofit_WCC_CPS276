@@ -9,12 +9,12 @@ class Browse_users extends CI_Controller
         parent::__construct();
         $this->load->model('group1_models/user_model'); // I can now access the User_model class ($this->User_model)
     
-		$this->clearance = $this->user_model->getPermission($this->session->userID);
     }
 
 
     public function index()
     {
+		$this->clearance = $this->user_model->getPermission($this->session->userID); // removed this from constructor and put it here - error onClick of forgot_password
         $permArray = str_split($this->clearance);
 
         // add if statement 
@@ -173,6 +173,40 @@ class Browse_users extends CI_Controller
     public function logOut(){
          $this->session->sess_destroy();
          redirect('login');
+    }
+
+
+    public function forgotPassword(){
+        
+        $this->load->view('group1/templates/header');
+        $this->load->view('group1/forgotten'); // enter user id - if no user id, talk to admin
+        $this->load->view('group1/templates/footer');
+    }
+    public function sendEmail(){
+        //got an error 
+        // You need to be running a mail server locally.
+
+        /**************************************************
+        *   HOW DO I DO THIS ON OUR HHEDUCATORS SERVER
+        *
+        *   HOW DO I DO THIS LOCALLY FOR TESTING
+        ***************************************************/
+
+        $this->load->library('email');
+        
+        $user_id = $this->input->post('user_id');
+
+        $info = (array)$this->user_model->getUserInfo($user_id);
+
+        echo $info['email']; // user email associated with user_id
+        
+        $this->email->from('nbeaudoin@wccnet.edu');
+        $this->email->to('believewithyoureyes@gmail.com');
+        $this->email->subject('Change Password');
+        $this->email->message('Change your damn password');
+        echo $this->email->send();
+        // send 'change password' link to email registered to specified user_id
+
     }
 }
 

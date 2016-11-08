@@ -66,6 +66,8 @@ $route['login_validate'] = 'group1/login_controller/validateCredentials';
 $route['browse_duties'] = 'group1/browse_duties';
 $route['browse_users'] = 'group1/browse_users';
 $route['details'] = 'group1/browse_users/userProfile';
+$route['forgot_password'] = 'group1/browse_users/forgotPassword'; // second button on login page
+$route['send_email'] = 'group1/browse_users/sendEmail'; // send email to id entered ^
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
