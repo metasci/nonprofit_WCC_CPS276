@@ -183,7 +183,14 @@ class Browse_users extends CI_Controller
         $this->load->view('group1/templates/footer');
     }
     public function sendEmail(){
-        
+        //got an error 
+        // You need to be running a mail server locally.
+
+        /**************************************************
+        *   HOW DO I DO THIS ON OUR HHEDUCATORS SERVER
+        *
+        *   HOW DO I DO THIS LOCALLY FOR TESTING
+        ***************************************************/
 
         $this->load->library('email');
         
@@ -192,19 +199,9 @@ class Browse_users extends CI_Controller
         $info = (array)$this->user_model->getUserInfo($user_id);
 
         echo $info['email']; // user email associated with user_id
-
-
-       //got an error 
-        // You need to be running a mail server locally.
-
-        /**************************************************
-        *   HOW DO I DO THIS ON OUR HHEDUCATORS SERVER
-        *
-        *   HOW DO I DO THIS LOCALLY FOR TESTING
-        ***************************************************/ 
         
-        $this->email->from('');
-        $this->email->to('');
+        $this->email->from('nbeaudoin@wccnet.edu');
+        $this->email->to('believewithyoureyes@gmail.com');
         $this->email->subject('Change Password');
         $this->email->message('Change your damn password');
         echo $this->email->send();
