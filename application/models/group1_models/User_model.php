@@ -79,7 +79,6 @@ class User_model extends CI_Model
 
     }
 
-
     // get all user info (user profile and settings pages)
     public function getAllUserInfo($userID)
     {
@@ -92,6 +91,27 @@ class User_model extends CI_Model
         return $query[0];
     }
 
+
+    //gets family_id for current logged in user
+    public function getFamilyID($userID)
+    {
+        $this->db->select('family_id');
+        $this->db->from('users');
+        $this->db->where('user_id', $userID);
+        $query = $this->db->get()->result();
+        return $query[0]; 
+    }
+
+   //matches family_id in users table to get associated family members
+    public function getKids($familyID)
+    {   
+        $this->db->select('first_name, middle_initial, user_id');
+        $this->db->from('users');
+        $this->db->where('family_id', $familyID['family_id']);
+        $query = $this->db->get()->result();
+        
+        return $query;
+    }
 
     // gets info for all users based on filter options
     // for use on browse_users page
