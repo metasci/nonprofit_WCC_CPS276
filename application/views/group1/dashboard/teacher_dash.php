@@ -18,18 +18,36 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>CRN 12345</td>
-                        <td>MTH 123</td>
-                        <td>
-                            <button class="btn btn-primary">View Course</button>
-                        </td>
-                    </tr>
+                    
+                    <?php
+                    	foreach($results2 as $object) {
+                    		$cn = $object['course_name'];
+                    		echo "<tr>";
+                    			echo "<form action='./teacher_classes' method='post' style='display: inline-block'>";
+                    			echo 	"<td>" . $object['id'] . "</td>";
+								echo 	"<td>" . $object['course_name'] . "</td>";
+								echo 	"<td>";
+								echo 		"<button class='btn btn-primary' name='selection' data-toggle='modal' data-target='#class_details_modal' id='class_details'>Class Details</button>&nbsp";							
+								echo 		"<button class='btn btn-info'>Archive Course</button>";
+								echo 	"</td>";
+								echo "</form>";
+							echo "</tr>";
+						}
+					?>
+					
                     </tbody>
                 </table>
             </div>
         </div>
         <!-- Current Courses Panel END -->
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="class_details_modal" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div style="overflow: auto;" class="modal-content">
+        <?php include('application/views/group1/details/class_details.php'); ?>
+    </div>
+  </div>
+</div>
 
 
         <!-- we dont need this here. completed courses will become long -->
