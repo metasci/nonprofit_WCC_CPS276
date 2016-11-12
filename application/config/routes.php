@@ -49,7 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-
+$route['user_duties'] = 'group1/browse_duties/getUserDuties';
+$route['duty_details'] = 'group1/browse_duties/dutyDetails';
+$route['add_duty_user'] = 'group1/browse_duties/addDutyUser';
+$route['remove_duty_user'] = 'group1/browse_duties/removeDutyUser';
 $route['update_duty'] = 'group1/browse_duties/updateDuty';
 $route['edit_duty'] = 'group1/browse_duties/editDuty';
 $route['filter_duties'] = 'group1/browse_duties/filterDuties';

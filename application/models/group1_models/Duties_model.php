@@ -43,4 +43,30 @@ class Duties_model extends CI_Model {
         $this->db->update('misc_duties_table', $data);
     }
 
+    public function addDutyUser($userID, $dutyID)
+    {
+        $query = $this->db->get_where('users', array('user_id', $userID));
+        $user = $query->result_array();
+        $currentDuties = $user[0]['misc_duties'];
+        $addedDuty = $currentDuties . $dutyID . ',';
+
+        $this->db->set('misc_duties', $addedDuty);
+        $this->db->where('user_id', $userID);
+        $this->db->update('users');
+
+    }
+
+    public function removeDutyUser($userID, $dutyID)
+    {
+        $query = $this->db->get_where('users', array('user_id', $userID));
+        $user = $query->result_array();
+        $currentDuties = $user[0]['misc_duties'];
+
+        $removedDuty = str_replace($dutyID . ',', "", $currentDuties);
+
+        $this->db->set('misc_duties', $removedDuty);
+        $this->db->where('user_id', $userID);
+        $this->db->update('users');
+    }
+
 }

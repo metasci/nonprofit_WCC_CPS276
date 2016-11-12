@@ -65,7 +65,16 @@
                     <tr>
                         <td>Assigned Duty ID's:</td>
                         <!-- delete this GUI comment when it's done - placed for noticeability  -->
-                        <td><?php echo $user_array['misc_duties'] ?> // PUT HERE A BUTTON TO BROWSE DUTIES PAGE SHOWING ONLY THIS USERS DUTIES</td>
+<<<<<<< HEAD
+                        
+=======
+                        <td>
+                            <?php echo form_open('user_duties') ?>
+                            <button type="submit" class="btn btn-primary">Browse My Duties</button>
+                            <input type="hidden" name="duty_ids" value="<?php echo $user_array['misc_duties'] ?>">
+                            <?php echo form_close() ?>
+                        </td>
+>>>>>>> 27c3d59507238c6cd706da3b0ed71fcdedb7dfcb
                     </tr>
                     <tr>
                         <td>Notes:</td>
