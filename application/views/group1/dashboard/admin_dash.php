@@ -15,7 +15,7 @@
                     <div class="panel-body">
                         <button class="btn btn-primary" name="selection" data-toggle="modal" data-target="#add_duty_modal" id="add_user">Add Duty</button>
 
-                        <form action="./index.php/browse_duties" method="post" style="display: inline-block">
+                        <form action="browse_duties" method="post" style="display: inline-block">
                             <button type="submit" class="btn btn-info">Browse Duties</button>
                         </form>
 
@@ -48,10 +48,10 @@
                         </form>
                         <br><br>
                         <!-- search for users -->
-                        <form action="." method="post">
+                        <form action="./browse_users" method="post">
                             <label>Find a user:</label>
                             <div class="input-group col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                <input placeholder="Enter user ID" class="form-control" type="number" name="userID">
+                                <input placeholder="Enter user ID" class="form-control" type="number" name="user_id">
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-default">Search</button>
                                 </span>

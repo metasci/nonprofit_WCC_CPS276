@@ -70,7 +70,7 @@ birth_date (year, month, day) ex. show me all kids born in december || born in 2
 
                             <div class="form-group col-lg-2 col-md-3 col-sm-6 col-xs-12">
                                 <label for="birth_month">Birth Month #: (1 - 12)</label> <!-- good for finding who has birthdays this month -->
-                                <input type="number" class="form-control" name="birth_Month" min="1" max="12">
+                                <input type="number" class="form-control" name="birth_month" min="1" max="12">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="gender" value="0">
@@ -154,7 +154,7 @@ birth_date (year, month, day) ex. show me all kids born in december || born in 2
                        }
 
                     ?></td>
-                    <td><?php echo $userInfo['gender'] ?></td>
+                    <td><?php echo $userInfo['gender']? 'Female':'Male' ?></td>
                     <td><?php echo $userInfo['city'] ?></td>
                     <td>
                         <?php echo form_open('details')?> <!-- route to userProfile page -->

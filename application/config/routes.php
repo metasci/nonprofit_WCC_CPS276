@@ -49,21 +49,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-
+$route['user_duties'] = 'group1/browse_duties/getUserDuties';
+$route['duty_details'] = 'group1/browse_duties/dutyDetails';
+$route['add_duty_user'] = 'group1/browse_duties/addDutyUser';
+$route['remove_duty_user'] = 'group1/browse_duties/removeDutyUser';
 $route['update_duty'] = 'group1/browse_duties/updateDuty';
 $route['edit_duty'] = 'group1/browse_duties/editDuty';
 $route['filter_duties'] = 'group1/browse_duties/filterDuties';
 $route['get_duty/(:num)'] = 'group1/browse_duties/getDutyById/$1';
 $route["add_duty"] = 'group1/browse_duties/addDuty';
+
 $route['update_user_info'] = 'group1/browse_users/updateUser'; // on submission of admin edit user form
 $route['edit_account'] = 'group1/browse_users/editAccount';
 $route['confirm_user_password'] = 'group1/browse_users/confirmUserPassword'; // user_profile button for admin
-// $route['change_password'] = // user_profile button for non-admin
+$route['change_password'] = 'group1/browse_users/changePassword' ;// user_profile button for non-admin
+$route['log_out'] = 'group1/browse_users/logOut';
 $route['login'] = 'group1/login_controller';
 $route['login_validate'] = 'group1/login_controller/validateCredentials';
 $route['browse_duties'] = 'group1/browse_duties';
 $route['browse_users'] = 'group1/browse_users';
 $route['details'] = 'group1/browse_users/userProfile';
+$route['teacher_classes'] = 'group1/teacher_classes';
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

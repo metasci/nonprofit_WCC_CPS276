@@ -2,8 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Browse_duties extends CI_Controller {
-    public $clearance = '1111'; // maybe place this in the constructor -> set to permission number in sessions
-	
+    
 	public function __construct(){
         parent::__construct(); 
         $this->load->model('group1_models/duties_model'); // I can now access the Duties_model class ($this->Duties_model)
@@ -17,7 +16,6 @@ class Browse_duties extends CI_Controller {
         echo 'browse_duties controller';
                 $this->load->view('group1/templates/header');
 				$this->load->view('group1/templates/navbar/navbar');
-                // call showBrowseDuties here to set the correct view
                 $this->showBrowseDuties();
 				$this->load->view('group1/templates/navbar/navbottom'); 
 				$this->load->view('group1/templates/footer'); 
@@ -27,8 +25,59 @@ class Browse_duties extends CI_Controller {
     {
         $this->load->view('group1/templates/header');
         $this->load->view('group1/templates/navbar/navbar');
-        // call showBrowseDuties here to set the correct view
         $this->load->view('group1/browse/duty_table', $data);
+        $this->load->view('group1/templates/navbar/navbottom');
+        $this->load->view('group1/templates/footer');
+    }
+
+    public function dutyDetails()
+    {
+        $duty_id = $this->input->post('duty_id');
+        $query = $this->db->get_where('misc_duties_table', array('duty_id' => $duty_id));
+
+        $data['dutyInfo'] = $query->result_array();
+        $data['allUsersWithDuty'] = $this->allUsersWithDuty($duty_id);
+
+
+        $this->load->view('group1/templates/header');
+        $this->load->view('group1/templates/navbar/navbar');
+        $this->load->view('group1/browse/duty_details_table', $data);
+        $this->load->view('group1/templates/navbar/navbottom');
+        $this->load->view('group1/templates/footer');
+    }
+
+    public function allUsersWithDuty($dutyID)
+    {
+        $usersWithDuty = array();
+
+        $this->db->select('user_id, first_name, middle_initial, last_name, misc_duties');
+        $query = $this->db->get('users');
+        $results = $query->result_array();
+
+        foreach ($results as $user)
+        {
+            $user_duties = explode(',', $user['misc_duties']);
+            if(in_array($dutyID, $user_duties))
+            {
+                array_push($usersWithDuty, $user);
+            }
+        }
+
+        return $usersWithDuty;
+    }
+    
+    public function getUserDuties()
+    {
+        $ids = $this->input->post('duty_ids');
+        $idsArray = explode(",", $ids);
+        $this->db->where_in('duty_id', $idsArray);
+        $query = $this->db->get('misc_duties_table');
+
+        $data['dutiesInfo'] = $query->result_array();
+        
+        $this->load->view('group1/templates/header');
+        $this->load->view('group1/templates/navbar/navbar');
+        $this->load->view('group1/browse/user_duties', $data);
         $this->load->view('group1/templates/navbar/navbottom');
         $this->load->view('group1/templates/footer');
     }
@@ -93,6 +142,23 @@ class Browse_duties extends CI_Controller {
 
         return redirect('browse_duties');
     }
+
+    public function addDutyUser()
+    {
+        $userID = $this->input->post('user_id');
+        $dutyID = $this->input->post('duty_id');
+        $this->duties_model->addDutyUser($userID, $dutyID);
+        return redirect('browse_duties');
+    }
+
+    public function removeDutyUser()
+    {
+        $userID = $this->input->post('user_id');
+        $dutyID = $this->input->post('duty_id');
+        $this->duties_model->removeDutyUser($userID, $dutyID);
+        return redirect('browse_duties');
+    }
+
 
     public function editDuty()
     {

@@ -26,10 +26,21 @@ class User_model extends CI_Model
             'notes' => $this->input->post('notes'),
             'phone_number_1' => $this->input->post('phone1'),
             'phone_number_2' => $this->input->post('phone2'),
-            'email' => $this->input->post('email1')
+            'email' => $this->input->post('email1'),
+            'family_id' => $this->input->post('family_id')
         );
 
-        return $this->db->insert('users', $data);
+        $this->db->insert('users', $data);
+
+        if($this->input->post('add_teacher')){
+            // get this user id and add it to the table
+            $this->db->select('user_id');
+            $this->db->where($data);
+            $id = $this->db->get('users')->result();
+            
+            
+            $this->db->insert('teacher_table', array('user_id' => $id[0]));
+        }
     }
 
     public function buildPermission($admin, $teacher, $parent, $student)
@@ -46,10 +57,8 @@ class User_model extends CI_Model
         $this->db->where($array);
         $query = $this->db->get('users');
 
-        // print_r();
 
         if ($query->result_id->num_rows == 1) {
-            // echo 'logged in';
             return true;
         } else {
             return false;
@@ -81,7 +90,6 @@ class User_model extends CI_Model
 
     }
 
-
     // get all user info (user profile and settings pages)
     public function getAllUserInfo($userID)
     {
@@ -94,6 +102,30 @@ class User_model extends CI_Model
         return $query[0];
     }
 
+
+    //gets family_id for current logged in user
+    public function getFamilyID($userID)
+    {
+        $this->db->select('family_id');
+        $this->db->from('users');
+        $this->db->where('user_id', $userID);
+        $query = $this->db->get()->result();
+        return $query[0]; 
+    }
+
+   //matches family_id in users table to get associated family members
+    public function getKids($familyID)
+    {   
+        $this->db->select('first_name, middle_initial, user_id');
+        $this->db->from('users');
+        $this->db->where('family_id', $familyID['family_id']);
+        $this->db->like('permission', "1", 'before'); // uses regex to find permission where ***1 (students with specified family id)
+        $query = $this->db->get()->result();
+        
+        return $query;
+    }
+
+    //  “’^[0-9].*’”
 
     // gets info for all users based on filter options
     // for use on browse_users page
@@ -110,38 +142,36 @@ class User_model extends CI_Model
             // print_r($filterInfo);
 
             if ($filterInfo['first_name']) {
-                $filter['first_name'] = $filterInfo['first_name'];
+                $this->db->where('first_name', $filterInfo['first_name']);
             }
 
             if ($filterInfo['last_name']) {
-                $filter['last_name'] = $filterInfo['last_name'];
+                $this->db->where('last_name', $filterInfo['last_name']);
             }
 
 
             // requires a table join
-            // if($filterInfo->family_id){
-            // 	$filter['family_id'] = $filterInfo->family_id;
-            // }
+            if($filterInfo['family_id']){
+                $this->db->where('family_id', $filterInfo['family_id']);
+            }
 
             if ($filterInfo['user_id']) {
-                $filter['user_id'] = $filterInfo['user_id'];
+                $this->db->where('user_id', $filterInfo['user_id']);
             }
 
             if ($filterInfo['city']) {
-                $filter['city'] = $filterInfo['city'];
+                $this->db->where('city', $filterInfo['city']);
             }
 
             if ($filterInfo['birth_date']) {
-                $filter['birth_date'] = $filterInfo['birth_date'];
+                $this->db->where('birth_date', $filterInfo['birth_date']);
             }
 
-            // this will need some manipulation
-            // if($filterInfo['birth_month']){
-            // 	$filter['birth_month'] = $filterInfo['birth_month'];
-            // }
+            // find all users with birthday in specified month
+            if($filterInfo['birth_month']){
+                $this->db->where('MONTH(birth_date) = '.$filterInfo['birth_month']);
+            }
 
-
-            $this->db->where($filter);
 
         }
 
@@ -165,6 +195,7 @@ class User_model extends CI_Model
             'street' => $post['str_addr'],
             'city' => $post['city'],
             'state' => $post['which_state'],
+            'family_id' =>$post['family_id'],
             'permission' => $this->buildPermission(isset($post['add_admin']) ? $post['add_admin'] : 0, isset($post['add_teacher']) ? $post['add_teacher'] : 0, isset($post['add_parent']) ? $post['add_parent'] : 0, isset($post['add_student']) ? $post['add_student'] : 0),
             'zip' => $post['zip_code'],
             'birth_date' => $post['birth_date'],
@@ -185,7 +216,6 @@ class User_model extends CI_Model
 
         $query = $this->db->get('users')->result();
 
-        // print_r();
         return $query[0]->password;
     }
 
@@ -196,4 +226,13 @@ class User_model extends CI_Model
         $this->db->delete('users');
     }
 
+
+	public function updatePassword($user_id, $password){
+		$data = array('password' => md5($password));
+
+		$this->db->where('user_id', $user_id);
+		$this->db->update('users', $data);
+
+
+	}
 }

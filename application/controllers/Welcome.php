@@ -108,12 +108,33 @@ class Welcome extends CI_Controller {
 		if($permArray[0]) 
 			$this->load->view('group1/dashboard/admin_dash', $data);
 
-		if($permArray[1])
-			$this->load->view('group1/dashboard/teacher_dash');
+		if($permArray[1]) {
+		
+			// Load Teacher Classes Model
+			$this->load->model('group1_models/teacher_classes_model');
+			
+			// Get the array of current Course IDs being taught from course table 
+			$data = $this->teacher_classes_model->get_current_classes($this->session->userID);
+			
+			// Separate the IDs into its own array
+			$myCourseIDsArr = explode(',', $data->current_courses);
+			//print_r($myCourseIDsArr);
+			
+			
+			// Using the IDs array, get all rows for each course ID from the model.
+			$data2['results2'] = $this->teacher_classes_model->get_course_info($myCourseIDsArr);
 
-		if($permArray[2])
-			$this->load->view('group1/dashboard/parent_dash');
+			// Load the view and pass in the rows from $data2
+			$this->load->view('group1/dashboard/teacher_dash', $data2);
 
+		}
+
+		if($permArray[2]){
+			$userArray = $this->findFamily($this->session->userID);
+ 			// print_r($userArray);
+ 			$this->load->view('group1/dashboard/parent_dash', array("userArray" => $userArray));
+		}
+		
 		if($permArray[3])
 			$this->load->view('group1/dashboard/student_dash');
 
@@ -121,6 +142,18 @@ class Welcome extends CI_Controller {
 	}
 	// *******
 	
+
+
+	public function findFamily($userID){
+		$familyID = (array)$this->user_model->getFamilyID($userID);
+		// print_r($familyID);
+		$userArray = $this->user_model->getKids($familyID);
+		// print_r($userArray);
+		return $userArray;
+	}
+
+
+
 	//*******
 	public function registerUser($data) {
 

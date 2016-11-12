@@ -37,8 +37,11 @@
 
                 <!-- link this to email password reset menu -->
                 <!-- what about forgotten user id functionality -->
-                <button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-12">Forgot Password</button>
+                
             </form>
+            <?php echo form_open('forgot_password'); ?>
+                <button type="submit" class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-12">Forgot Password</button>
+            <?php echo form_close(); ?>
         </div>
     </div>
     

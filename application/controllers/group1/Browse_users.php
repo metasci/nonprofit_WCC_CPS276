@@ -3,23 +3,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Browse_users extends CI_Controller
 {
-    public $clearance = '1111'; // maybe place this in the constructor -> set to permission number in sessions
-
+    
     public function __construct()
     {
         parent::__construct();
         $this->load->model('group1_models/user_model'); // I can now access the User_model class ($this->User_model)
+    
     }
 
 
     public function index()
     {
+		$this->clearance = $this->user_model->getPermission($this->session->userID); // removed this from constructor and put it here - error onClick of forgot_password
+        $permArray = str_split($this->clearance);
+
         // add if statement 
         // if admin continue
-        if ($this->session->logged_in) { // if logged in show browse users
+        if ($this->session->logged_in && $permArray[0] == 1) { // if logged in show browse users
+
 
             $data['user_array'] = (array)$this->user_model->filterUsers($this->input->post());
-
 
             $this->load->view('group1/templates/header');
             $this->load->view('group1/templates/navbar/navbar');
@@ -98,15 +101,31 @@ class Browse_users extends CI_Controller
     }
 
     // displays the change password page for non-admin users
-    public function changePassword()
-    {
-        // old password
-        // maybe but then the admin couldnt force change user passwords
-        // new password
-        // confirm new password 
-        // use javascript checkPassword function to confirm sameness
+    public function changePassword(){
+        if($this->session->logged_in){ // if logged in show user profile
+            $data['user_id'] = $this->input->post('user_id');
+            
+            if($this->input->post('doit') == 1){
 
-        //submit
+                $this->user_model->updatePassword($this->input->post('user_id'), $this->input->post('passwd'));
+                
+                header('Location: '.base_url());
+
+            } else {    
+                
+
+                $this->load->view('group1/templates/header');
+                $this->load->view('group1/templates/navbar/navbar');
+                $this->load->view('group1/details/change_password', $data);// change password page
+                $this->load->view('group1/templates/navbar/navbottom'); 
+                $this->load->view('group1/templates/footer');
+                
+            }
+		} else { // else redirect to Login_controller
+
+			header('Location: login');
+	
+		}
     }
 
     public function confirmUserPassword($error = FALSE)
@@ -136,8 +155,8 @@ class Browse_users extends CI_Controller
                 $data['error'] = $error;
                 $this->load->view('group1/templates/header');
                 $this->load->view('group1/templates/navbar/navbar');
-                $this->load->view('group1/admin/get_password', $data);// get admin password
-                $this->load->view('group1/templates/navbar/navbottom');
+                $this->load->view('group1/details/get_password', $data);// get admin password
+                $this->load->view('group1/templates/navbar/navbottom'); 
                 $this->load->view('group1/templates/footer');
             }
 
@@ -149,4 +168,46 @@ class Browse_users extends CI_Controller
 
 
     }
+
+
+    public function logOut(){
+         $this->session->sess_destroy();
+         redirect('login');
+    }
+
+
+    public function forgotPassword(){
+        
+        $this->load->view('group1/templates/header');
+        $this->load->view('group1/forgotten'); // enter user id - if no user id, talk to admin
+        $this->load->view('group1/templates/footer');
+    }
+    public function sendEmail(){
+        //got an error 
+        // You need to be running a mail server locally.
+
+        /**************************************************
+        *   HOW DO I DO THIS ON OUR HHEDUCATORS SERVER
+        *
+        *   HOW DO I DO THIS LOCALLY FOR TESTING
+        ***************************************************/
+
+        $this->load->library('email');
+        
+        $user_id = $this->input->post('user_id');
+
+        $info = (array)$this->user_model->getUserInfo($user_id);
+
+        echo $info['email']; // user email associated with user_id
+        
+        $this->email->from('nbeaudoin@wccnet.edu');
+        $this->email->to('believewithyoureyes@gmail.com');
+        $this->email->subject('Change Password');
+        $this->email->message('Change your damn password');
+        echo $this->email->send();
+        // send 'change password' link to email registered to specified user_id
+
+    }
 }
+
+
