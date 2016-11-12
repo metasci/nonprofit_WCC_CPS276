@@ -26,10 +26,21 @@ class User_model extends CI_Model
             'notes' => $this->input->post('notes'),
             'phone_number_1' => $this->input->post('phone1'),
             'phone_number_2' => $this->input->post('phone2'),
-            'email' => $this->input->post('email1')
+            'email' => $this->input->post('email1'),
+            'family_id' => $this->input->post('family_id')
         );
 
-        return $this->db->insert('users', $data);
+        $this->db->insert('users', $data);
+
+        if($this->input->post('add_teacher')){
+            // get this user id and add it to the table
+            $this->db->select('user_id');
+            $this->db->where($data);
+            $id = $this->db->get('users')->result();
+            
+            
+            $this->db->insert('teacher_table', array('user_id' => $id[0]));
+        }
     }
 
     public function buildPermission($admin, $teacher, $parent, $student)
@@ -108,10 +119,13 @@ class User_model extends CI_Model
         $this->db->select('first_name, middle_initial, user_id');
         $this->db->from('users');
         $this->db->where('family_id', $familyID['family_id']);
+        $this->db->like('permission', "1", 'before'); // uses regex to find permission where ***1 (students with specified family id)
         $query = $this->db->get()->result();
         
         return $query;
     }
+
+    //  “’^[0-9].*’”
 
     // gets info for all users based on filter options
     // for use on browse_users page

@@ -15,6 +15,7 @@ echo validation_errors();
     <div class="container col-lg-12 col-md-12 col-sm-12">
 <!-- if $registration_edit form action="/update_user_info" -->
         <form class="form-horizontal"  method='post' action='<?php echo $registration_edit ? 'update_user_info' : '.' ?>' onsubmit="return checkPassword(this);">
+            <!-- <input type="hidden" name="registration_edit" value="<?php echo $registration_edit ?>"> -->
             <div class="form-group row">
                 <div class="col-md-4 col-sm-4">
                     <label class="control-label" for="fname">First Name:</label>

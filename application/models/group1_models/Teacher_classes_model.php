@@ -47,7 +47,7 @@
         	$this->db->from('teacher_table');
         	$this->db->where('user_id', $userID);
         	$query = $this->db->get()->result();
-
+			
         	return $query[0];
 			
 		}

@@ -23,6 +23,7 @@
                     	foreach($results2 as $object) {
                     		$cn = $object['course_name'];
                     		echo "<tr>";
+                            // I don't understand why you have this form here. it is loading ./teacher_classes instead of triggering your modal'
                     			echo "<form action='./teacher_classes' method='post' style='display: inline-block'>";
                     			echo 	"<td>" . $object['id'] . "</td>";
 								echo 	"<td>" . $object['course_name'] . "</td>";

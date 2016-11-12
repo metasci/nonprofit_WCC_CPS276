@@ -129,9 +129,12 @@ class Welcome extends CI_Controller {
 
 		}
 
-		if($permArray[2])
-			$this->load->view('group1/dashboard/parent_dash');
-
+		if($permArray[2]){
+			$userArray = $this->findFamily($this->session->userID);
+ 			// print_r($userArray);
+ 			$this->load->view('group1/dashboard/parent_dash', array("userArray" => $userArray));
+		}
+		
 		if($permArray[3])
 			$this->load->view('group1/dashboard/student_dash');
 
@@ -139,6 +142,18 @@ class Welcome extends CI_Controller {
 	}
 	// *******
 	
+
+
+	public function findFamily($userID){
+		$familyID = (array)$this->user_model->getFamilyID($userID);
+		// print_r($familyID);
+		$userArray = $this->user_model->getKids($familyID);
+		// print_r($userArray);
+		return $userArray;
+	}
+
+
+
 	//*******
 	public function registerUser($data) {
 
