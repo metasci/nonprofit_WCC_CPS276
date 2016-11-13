@@ -182,6 +182,9 @@ class Browse_users extends CI_Controller
         $this->load->view('group1/forgotten'); // enter user id - if no user id, talk to admin
         $this->load->view('group1/templates/footer');
     }
+
+
+    
     public function sendEmail(){
         //got an error 
         // You need to be running a mail server locally.

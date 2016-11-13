@@ -37,9 +37,9 @@ class User_model extends CI_Model
             $this->db->select('user_id');
             $this->db->where($data);
             $id = $this->db->get('users')->result();
+            // print_r($id[0]->user_id);
             
-            
-            $this->db->insert('teacher_table', array('user_id' => $id[0]));
+            $this->db->insert('teacher_table', array('user_id' => $id[0]->user_id));
         }
     }
 
