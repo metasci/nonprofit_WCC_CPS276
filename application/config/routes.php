@@ -61,8 +61,11 @@ $route["add_duty"] = 'group1/browse_duties/addDuty';
 
 $route['update_user_info'] = 'group1/browse_users/updateUser'; // on submission of admin edit user form
 $route['edit_account'] = 'group1/browse_users/editAccount';
+
 $route['confirm_user_password'] = 'group1/browse_users/confirmUserPassword'; // user_profile button for admin
 $route['change_password'] = 'group1/browse_users/changePassword' ;// user_profile button for non-admin
+
+
 $route['log_out'] = 'group1/browse_users/logOut';
 $route['login'] = 'group1/login_controller';
 $route['login_validate'] = 'group1/login_controller/validateCredentials';
@@ -70,6 +73,10 @@ $route['browse_duties'] = 'group1/browse_duties';
 $route['browse_users'] = 'group1/browse_users';
 $route['details'] = 'group1/browse_users/userProfile';
 $route['teacher_classes'] = 'group1/teacher_classes';
+
+$route['forgot_password'] = 'group1/browse_users/forgotPassword'; //
+$route['send_email'] = 'group1/browse_users/sendEmail';
+$route['reset_password/(:any)'] = 'group1/browse_users/reset_password/$1'; // take random string identifier and reset password
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

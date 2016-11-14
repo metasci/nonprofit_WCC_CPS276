@@ -235,4 +235,30 @@ class User_model extends CI_Model
 
 
 	}
+
+    public function save_random_string($random, $user_id){
+        $data = array(
+            'random_string' => $random,
+            'user_id' => $user_id
+            );
+
+        $this->db->insert('reset_password', $data);
+    }
+
+    // RESET PASSWORD
+    // get the user_id associated with the random string in the url
+    public function get_rand_id($rand){
+        $this->db->select('user_id');
+        $this->db->where('random_string', $rand);
+        
+        $query = $this->db->get('reset_password')->result();
+
+        //delete this row from database so it can't be used again
+        // $this->db->where('random_string', $rand);
+        // $this->db->delete('reset_password');
+
+        // print_r($query[0]->user_id);
+        return $query[0]->user_id;
+    }
+
 }
