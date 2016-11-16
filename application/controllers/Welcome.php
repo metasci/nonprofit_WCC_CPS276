@@ -78,12 +78,6 @@ class Welcome extends CI_Controller {
                 	$this->registerUser($data);
 				}
 				break;
-            case 'courses': // group 3
-                // include 'courses';
-                break;
-            case 'gradebook': // group 4
-                // include 'gradebook';
-                break;
             default:
 				$this->showDash($this->clearance); // put actual user permission in header_register_callback
 									   // query database for the info

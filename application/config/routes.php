@@ -78,6 +78,16 @@ $route['forgot_password'] = 'group1/browse_users/forgotPassword'; //
 $route['send_email'] = 'group1/browse_users/sendEmail';
 $route['reset_password/(:any)'] = 'group1/browse_users/reset_password/$1'; // take random string identifier and reset password
 
+// GROUP 3 ROUTES
+
+$route['courses'] = 'group3/courses_main/course_dash';
+$route['add-class'] = 'group3/courses_main/add_class_page';
+$route['save_new_class'] = 'group3/courses_main/save_new_class';
+
+//***********************
+
+
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

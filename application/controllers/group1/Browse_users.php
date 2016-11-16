@@ -215,14 +215,14 @@ class Browse_users extends CI_Controller
 
         $info = (array)$this->user_model->getUserInfo($user_id);
 
-        echo $info['email']; // user email associated with user_id
+        // echo $info['email']; // user email associated with user_id
         //***** for production use
 
 
         $rand = $this->generateRandomString();
 
         $this->email->from('thenewhotness99@gmail.com', 'app', 'thenewhotness99@gmail.com');
-        $this->email->to('believewithyoureyes@gmail.com');
+        $this->email->to($info['email']);
         $this->email->subject('Change Password');
         $this->email->message('Change your hheducators password here: '.base_url().'reset_password/'.$rand/* generate random string */);
 

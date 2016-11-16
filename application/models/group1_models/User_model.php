@@ -141,35 +141,50 @@ class User_model extends CI_Model
             // echo 'Filter Info';
             // print_r($filterInfo);
 
-            if ($filterInfo['first_name']) {
+            if (isset($filterInfo['first_name']) && $filterInfo['first_name']) {
                 $this->db->where('first_name', $filterInfo['first_name']);
             }
 
-            if ($filterInfo['last_name']) {
+            if (isset($filterInfo['last_name']) && $filterInfo['last_name']) {
                 $this->db->where('last_name', $filterInfo['last_name']);
             }
 
 
             // requires a table join
-            if($filterInfo['family_id']){
+            if(isset($filterInfo['family_id']) && $filterInfo['family_id']){
                 $this->db->where('family_id', $filterInfo['family_id']);
             }
 
-            if ($filterInfo['user_id']) {
+            if (isset($filterInfo['user_id']) && $filterInfo['user_id']) {
                 $this->db->where('user_id', $filterInfo['user_id']);
             }
 
-            if ($filterInfo['city']) {
+            if (isset($filterInfo['city']) && $filterInfo['city']) {
                 $this->db->where('city', $filterInfo['city']);
             }
 
-            if ($filterInfo['birth_date']) {
+            if (isset($filterInfo['birth_date']) && $filterInfo['birth_date']) {
                 $this->db->where('birth_date', $filterInfo['birth_date']);
             }
 
             // find all users with birthday in specified month
-            if($filterInfo['birth_month']){
+            if(isset($filterInfo['birth_month']) && $filterInfo['birth_month']){
                 $this->db->where('MONTH(birth_date) = '.$filterInfo['birth_month']);
+            }
+
+            if(isset($filterInfo['user_type'])){
+                if(isset($filterInfo['user_type']['admin']) && $filterInfo['user_type']['admin']){
+                    $this->db->where(array("permission REGEXP" => "1{1}\d{3}"));
+                }
+                if(isset($filterInfo['user_type']['teacher']) && $filterInfo['user_type']['teacher']){
+                    $this->db->where(array("permission REGEXP" => "\d{1}1\d{2}"));
+                }
+                if(isset($filterInfo['user_type']['parent']) && $filterInfo['user_type']['parent']){
+                    $this->db->where(array("permission REGEXP" => "\d{2}1\d{1}"));
+                }
+                if(isset($filterInfo['user_type']['student']) && $filterInfo['user_type']['student']){
+                    $this->db->where(array("permission REGEXP" => "^\d{3}1"));
+                }
             }
 
 
