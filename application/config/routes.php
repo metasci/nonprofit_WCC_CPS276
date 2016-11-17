@@ -63,7 +63,7 @@ $route['update_user_info'] = 'group1/browse_users/updateUser'; // on submission 
 $route['edit_account'] = 'group1/browse_users/editAccount';
 
 $route['confirm_user_password'] = 'group1/browse_users/confirmUserPassword'; // user_profile button for admin
-$route['change_password'] = 'group1/browse_users/changePassword' ;// user_profile button for non-admin
+$route['change_password'] = 'group1/browse_users/changePassword'; // user_profile button for non-admin
 
 
 $route['log_out'] = 'group1/browse_users/logOut';
@@ -84,7 +84,10 @@ $route['courses'] = 'group3/courses_main/course_dash';
 $route['add-class'] = 'group3/courses_main/add_class_page';
 $route['save_new_class'] = 'group3/courses_main/save_new_class';
 $route['course_details'] = 'group3/courses_main/course_details';
+$route['course_edit'] = 'group3/courses_main/course_edit';
+$route['course_update'] = 'group3/courses_main/course_update';
 
+$route['course_delete'] = 'group3/courses_main/course_delete'; // use this for course_delete page
 //***********************
 
 
