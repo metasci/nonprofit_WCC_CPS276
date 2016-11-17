@@ -74,14 +74,14 @@
                 <td>
                     <?php echo form_open('course_details'); ?>
                         <input type="hidden" name="course_id" value="<?php echo $row['id'] ?>">
-                        <button type="submit" class=\"btn btn-info\" >details</button>
+                        <button type="submit" class="btn btn-info" >details</button>
                     <?php echo form_close(); ?>
                 </td>
 
                 <td>
                     <?php echo form_open('course_delete'); ?>
                         <input type="hidden" name="course_id" value="<?php echo $row['id'] ?>">
-                        <button type="submit" class=\"btn btn-danger\" >delete</button>
+                        <button type="submit" class="btn btn-danger" >delete</button>
                     <?php echo form_close(); ?>
                 </td>
             </tr>

@@ -77,6 +77,8 @@ class Courses_main extends CI_Controller
 
         $course_id = $this->input->post('course_id');
 
+        echo $course_id;
+
     }
 
 }
