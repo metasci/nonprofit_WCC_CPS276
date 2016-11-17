@@ -72,6 +72,13 @@ class Courses_main extends CI_Controller
 
     }
 
+
+    public function course_details(){
+
+        $course_id = $this->input->post('course_id');
+
+    }
+
 }
 
 

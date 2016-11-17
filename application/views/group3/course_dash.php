@@ -47,86 +47,51 @@
 
         <tbody>
 
-<?php
-
-// this could use some cleaning up
-// i did a little but the logic here is awkward
-
-foreach($course_info as $row){	
-
-	
-
-echo "<tr>";
-
-echo "<td>";
-
-echo $row['min_gradelevel'];
-
-echo "</td>";
-
-echo "<td>";
-
-echo $row['course_name'];		
-
-echo "</td>";
-
-echo "<td>";
-
-echo $row['teacher'];
-
-echo "</td>";
-
-echo "<td>"; 
-
-echo $row['category'];
-
-echo "</td>"; 
-
-echo "<td>";
-
-echo $row['time1start'];
-
-echo "</td>";
-
-echo "<td>";
-
-echo $row['time1end'];
-
-echo "</td>";
+            <?php foreach($course_info as $row): ?>
 
 
-// make these individual forms and tie them to routes************
-echo "<td><a class=\"btn btn-info\" href='details.php?id=".$row['id']."'>details</a></td>";
+            <tr>
+                <td>
+                    <?php echo $row['min_gradelevel']; ?>
+                </td>
+                <td>
+                    <?php echo $row['course_name']; ?>		
+                </td>
+                <td>
+                    <?php echo $row['teacher']; ?>
+                </td>
+                <td> 
+                    <?php echo $row['category']; ?>
+                </td> 
+                <td>
+                    <?php echo $row['time1start']; ?>
+                </td>
+                <td>
+                    <?php echo $row['time1end']; ?>
+                </td>
 
-echo "<td><a class=\"btn btn-danger\" href='delete-class.php?id=".$row['id']."'>delete</a></td></tr>";
-// **********
+            <!-- make these individual forms and tie them to routes************ -->
+                <td>
+                    <?php echo form_open('course_details'); ?>
+                        <input type="hidden" name="course_id" value="<?php echo $row['id'] ?>">
+                        <button type="submit" class=\"btn btn-info\" >details</button>
+                    <?php echo form_close(); ?>
+                </td>
 
+                <td>
+                    <?php echo form_open('course_delete'); ?>
+                        <input type="hidden" name="course_id" value="<?php echo $row['id'] ?>">
+                        <button type="submit" class=\"btn btn-danger\" >delete</button>
+                    <?php echo form_close(); ?>
+                </td>
+            </tr>
+            <!-- // ********** -->
 
-}
-
-echo"</table>";
-
-
-
-
-
-?>
-
+            <?php endforeach; ?>
 
             
-
-            
-
-
-
-
-
-            
-
-            
-
         </tbody>
-
+</table>
     
 
 </div>
