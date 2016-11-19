@@ -37,7 +37,7 @@
 
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Courses</a></li>
+                    <li><a href="<?php echo base_url('courses') ?>">Courses</a></li>
                     <!-- this will be full of group specific links -->
                     <!--to be added on completion of entire project-->
                     <li class="dropdown">

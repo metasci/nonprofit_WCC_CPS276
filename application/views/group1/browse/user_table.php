@@ -87,19 +87,23 @@ birth_date (year, month, day) ex. show me all kids born in december || born in 2
                             <div class="form-group col-lg-1 col-md-1 col-sm-2 col-xs-3">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="user_type" value="admin">
+                                        <input type="hidden" name="user_type[admin]" value="0">
+                                        <input type="checkbox" name="user_type[admin]" value="1">
                                         Admin
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="user_type" value="teacher">
+                                        <input type="hidden" name="user_type[teacher]" value="0">
+                                        <input type="checkbox" name="user_type[teacher]" value="1">
                                         Teacher
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="user_type" value="parent">
+                                        <input type="hidden" name="user_type[parent]" value="0">
+                                        <input type="checkbox" name="user_type[parent]" value="1">
                                         Parent
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="user_type" value="student">
+                                        <input type="hidden" name="user_type[student]" value="0">
+                                        <input type="checkbox" name="user_type[student]" value="1">
                                         Student
                                     </label>
                                 </div>

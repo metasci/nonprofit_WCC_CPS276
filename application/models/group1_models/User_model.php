@@ -37,9 +37,9 @@ class User_model extends CI_Model
             $this->db->select('user_id');
             $this->db->where($data);
             $id = $this->db->get('users')->result();
+            // print_r($id[0]->user_id);
             
-            
-            $this->db->insert('teacher_table', array('user_id' => $id[0]));
+            $this->db->insert('teacher_table', array('user_id' => $id[0]->user_id));
         }
     }
 
@@ -141,35 +141,50 @@ class User_model extends CI_Model
             // echo 'Filter Info';
             // print_r($filterInfo);
 
-            if ($filterInfo['first_name']) {
+            if (isset($filterInfo['first_name']) && $filterInfo['first_name']) {
                 $this->db->where('first_name', $filterInfo['first_name']);
             }
 
-            if ($filterInfo['last_name']) {
+            if (isset($filterInfo['last_name']) && $filterInfo['last_name']) {
                 $this->db->where('last_name', $filterInfo['last_name']);
             }
 
 
             // requires a table join
-            if($filterInfo['family_id']){
+            if(isset($filterInfo['family_id']) && $filterInfo['family_id']){
                 $this->db->where('family_id', $filterInfo['family_id']);
             }
 
-            if ($filterInfo['user_id']) {
+            if (isset($filterInfo['user_id']) && $filterInfo['user_id']) {
                 $this->db->where('user_id', $filterInfo['user_id']);
             }
 
-            if ($filterInfo['city']) {
+            if (isset($filterInfo['city']) && $filterInfo['city']) {
                 $this->db->where('city', $filterInfo['city']);
             }
 
-            if ($filterInfo['birth_date']) {
+            if (isset($filterInfo['birth_date']) && $filterInfo['birth_date']) {
                 $this->db->where('birth_date', $filterInfo['birth_date']);
             }
 
             // find all users with birthday in specified month
-            if($filterInfo['birth_month']){
+            if(isset($filterInfo['birth_month']) && $filterInfo['birth_month']){
                 $this->db->where('MONTH(birth_date) = '.$filterInfo['birth_month']);
+            }
+
+            if(isset($filterInfo['user_type'])){
+                if(isset($filterInfo['user_type']['admin']) && $filterInfo['user_type']['admin']){
+                    $this->db->where(array("permission REGEXP" => "1{1}\d{3}"));
+                }
+                if(isset($filterInfo['user_type']['teacher']) && $filterInfo['user_type']['teacher']){
+                    $this->db->where(array("permission REGEXP" => "\d{1}1\d{2}"));
+                }
+                if(isset($filterInfo['user_type']['parent']) && $filterInfo['user_type']['parent']){
+                    $this->db->where(array("permission REGEXP" => "\d{2}1\d{1}"));
+                }
+                if(isset($filterInfo['user_type']['student']) && $filterInfo['user_type']['student']){
+                    $this->db->where(array("permission REGEXP" => "^\d{3}1"));
+                }
             }
 
 
@@ -235,4 +250,30 @@ class User_model extends CI_Model
 
 
 	}
+
+    public function save_random_string($random, $user_id){
+        $data = array(
+            'random_string' => $random,
+            'user_id' => $user_id
+            );
+
+        $this->db->insert('reset_password', $data);
+    }
+
+    // RESET PASSWORD
+    // get the user_id associated with the random string in the url
+    public function get_rand_id($rand){
+        $this->db->select('user_id');
+        $this->db->where('random_string', $rand);
+        
+        $query = $this->db->get('reset_password')->result();
+
+        //delete this row from database so it can't be used again
+        // $this->db->where('random_string', $rand);
+        // $this->db->delete('reset_password');
+
+        // print_r($query[0]->user_id);
+        return $query[0]->user_id;
+    }
+
 }

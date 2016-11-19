@@ -61,8 +61,11 @@ $route["add_duty"] = 'group1/browse_duties/addDuty';
 
 $route['update_user_info'] = 'group1/browse_users/updateUser'; // on submission of admin edit user form
 $route['edit_account'] = 'group1/browse_users/editAccount';
+
 $route['confirm_user_password'] = 'group1/browse_users/confirmUserPassword'; // user_profile button for admin
-$route['change_password'] = 'group1/browse_users/changePassword' ;// user_profile button for non-admin
+$route['change_password'] = 'group1/browse_users/changePassword'; // user_profile button for non-admin
+
+
 $route['log_out'] = 'group1/browse_users/logOut';
 $route['login'] = 'group1/login_controller';
 $route['login_validate'] = 'group1/login_controller/validateCredentials';
@@ -70,6 +73,24 @@ $route['browse_duties'] = 'group1/browse_duties';
 $route['browse_users'] = 'group1/browse_users';
 $route['details'] = 'group1/browse_users/userProfile';
 $route['teacher_classes'] = 'group1/teacher_classes';
+
+$route['forgot_password'] = 'group1/browse_users/forgotPassword'; //
+$route['send_email'] = 'group1/browse_users/sendEmail';
+$route['reset_password/(:any)'] = 'group1/browse_users/reset_password/$1'; // take random string identifier and reset password
+
+// GROUP 3 ROUTES
+
+$route['courses'] = 'group3/courses_main/course_dash';
+$route['add-class'] = 'group3/courses_main/add_class_page';
+$route['save_new_class'] = 'group3/courses_main/save_new_class';
+$route['course_details'] = 'group3/courses_main/course_details';
+$route['course_edit'] = 'group3/courses_main/course_edit';
+$route['course_update'] = 'group3/courses_main/course_update';
+
+$route['course_delete'] = 'group3/courses_main/course_delete'; // use this for course_delete page
+//***********************
+
+
 
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';

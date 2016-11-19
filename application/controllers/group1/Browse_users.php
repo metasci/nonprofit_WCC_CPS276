@@ -102,11 +102,12 @@ class Browse_users extends CI_Controller
 
     // displays the change password page for non-admin users
     public function changePassword(){
-        if($this->session->logged_in){ // if logged in show user profile
+        
+        if($this->session->logged_in || $this->input->post('forgot') == 1){ // if logged in show user profile
             $data['user_id'] = $this->input->post('user_id');
             
             if($this->input->post('doit') == 1){
-
+                echo "POP GOES THE WEAZEL";
                 $this->user_model->updatePassword($this->input->post('user_id'), $this->input->post('passwd'));
                 
                 header('Location: '.base_url());
@@ -182,6 +183,9 @@ class Browse_users extends CI_Controller
         $this->load->view('group1/forgotten'); // enter user id - if no user id, talk to admin
         $this->load->view('group1/templates/footer');
     }
+
+
+    
     public function sendEmail(){
         //got an error 
         // You need to be running a mail server locally.
@@ -191,23 +195,71 @@ class Browse_users extends CI_Controller
         *
         *   HOW DO I DO THIS LOCALLY FOR TESTING
         ***************************************************/
-
+	
+        $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.googlemail.com',
+            'mailpath' => "/usr/sbin/sendmail",
+            'smtp_port' => 465,
+            'smtp_user' => 'thenewhotness99@gmail.com',
+            'smtp_pass' => 'p@55w0rd',
+            'mailtype'  => 'text', 
+            'charset'   => 'iso-8859-1',
+            'smtp_crypto' => 'ssl' // doesn't work with tls
+        );
         $this->load->library('email');
-        
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");  
+        // different stuff
         $user_id = $this->input->post('user_id');
 
         $info = (array)$this->user_model->getUserInfo($user_id);
 
-        echo $info['email']; // user email associated with user_id
-        
-        $this->email->from('nbeaudoin@wccnet.edu');
-        $this->email->to('believewithyoureyes@gmail.com');
+        // echo $info['email']; // user email associated with user_id
+        //***** for production use
+
+
+        $rand = $this->generateRandomString();
+
+        $this->email->from('thenewhotness99@gmail.com', 'app', 'thenewhotness99@gmail.com');
+        $this->email->to($info['email']);
         $this->email->subject('Change Password');
-        $this->email->message('Change your damn password');
-        echo $this->email->send();
+        $this->email->message('Change your hheducators password here: '.base_url().'reset_password/'.$rand/* generate random string */);
+
+// store random string in database associated with user_id in question
+        $this->user_model->save_random_string($rand, $user_id);
+
+        if($this->email->send(false)){
+            
+            redirect(base_url());
+        } else echo $this->email->print_debugger();
+
         // send 'change password' link to email registered to specified user_id
 
     }
+
+    public function reset_password($rand){
+        // print_r($rand);
+
+        // query database for rand string and find associated user_id store in data and pass to page
+        $data['user_id'] = $this->user_model->get_rand_id($rand);
+        $data['forgot'] = 1;
+
+        $this->load->view('group1/templates/header');
+        $this->load->view('group1/details/change_password', $data);// change password page
+        $this->load->view('group1/templates/footer');
+    }
+
+    public function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
 }
 
 
