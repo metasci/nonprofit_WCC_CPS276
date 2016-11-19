@@ -21,7 +21,7 @@
                         <td>Status:</td>
                         <td>
                             <?php
-
+                            
                             $permissionArray = str_split($user_array['permission']);
                             if ($permissionArray[0] == 1) {
                                 echo 'Administrator<br>';
