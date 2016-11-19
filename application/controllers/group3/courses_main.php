@@ -11,7 +11,7 @@ class Courses_main extends CI_Controller
         $this->load->model('group1_models/user_model');
     }
 
-    public function course_dash(){
+    public function courses_dash(){
     
         // print_r($data['course_info']);
 

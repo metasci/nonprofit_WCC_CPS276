@@ -49,7 +49,15 @@
                     </tr>
                     <tr>
                         <td>Date of Birth</td>
-                        <td><?php echo date_format(date_create($user_array['birth_date']), 'M d, Y') ?></td>
+                        <td><?php
+                            $tmpVal = $user_array['birth_date'];
+                            //echo date('M d, Y', $tmpVal);
+                            $timeZone = new DateTimeZone("America/New_York");
+                            $date= new DateTime($tmpVal, $timeZone);
+                            //$date->setTimezone(DateTimeZone::AMERICA);
+                            echo $date->format("M d, Y");
+                            ?>
+                        </td>
                     </tr>
 
                     <tr>
