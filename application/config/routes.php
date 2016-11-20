@@ -94,3 +94,4 @@ $route['course_delete'] = 'group3/courses_main/course_delete'; // use this for c
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
