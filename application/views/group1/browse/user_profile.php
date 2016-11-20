@@ -49,7 +49,14 @@
                     </tr>
                     <tr>
                         <td>Date of Birth</td>
-                        <td><?php echo date_format(date_create($user_array['birth_date']), 'M d, Y') ?></td>
+                        <td><?php
+                           
+                            $tmpVal = $user_array['birth_date']; 
+                            $timeZone = new DateTimeZone("America/New_York");
+                            $date= new DateTime($tmpVal, $timeZone);
+                            echo $date->format("M d, Y");
+                            
+                        ?></td>
                     </tr>
 
                     <tr>
@@ -64,7 +71,6 @@
                     </tr>
                     <tr>
                         <td>Assigned Duty ID's:</td>
-                        <!-- delete this GUI comment when it's done - placed for noticeability  -->
 
                         <td>
                             <?php echo form_open('user_duties') ?>
