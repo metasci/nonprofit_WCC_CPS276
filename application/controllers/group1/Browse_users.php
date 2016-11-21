@@ -50,7 +50,6 @@ class Browse_users extends CI_Controller
             $data['user_array'] = (array)$this->user_model->getAllUserInfo($user_id);// get all user info based on posted user_id
             $data['current_user_clearance'] = str_split($this->user_model->getPermission($this->session->userID));
 
-
             $this->load->view('group1/templates/header');
             $this->load->view('group1/templates/navbar/navbar');
             $this->load->view('group1/browse/user_profile', $data); // load user_profile page

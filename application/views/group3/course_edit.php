@@ -12,14 +12,14 @@
 
             <tr>
                 <td>Course ID</td>
-                <td><input class="form-control" type='text' maxlength='5' name='id' value='<?= $course_info['id']?>'/></td>
+                <td><input class="form-control" type='text' maxlength='5' name='id' value='<?= $course_info['id']?>' required/></td>
             </tr>
 
 
 
             <tr>
                 <td>Course Name</td>
-                <td><input class="form-control" type='text' name='course_name' value='<?= $course_info['course_name']?>'/></td>
+                <td><input class="form-control" type='text' name='course_name' value='<?= $course_info['course_name']?>' required/></td>
             </tr>
 
 
@@ -27,7 +27,7 @@
 
             <tr>
                 <td>Teacher</td>
-                <td><input class="form-control" type='text' name='teacher' value='<?= $course_info['teacher']?>'/></td>
+                <td><input class="form-control" type='text' name='teacher' value='<?= $course_info['teacher']?>' required/></td>
             </tr>
 
 
@@ -35,7 +35,7 @@
 
             <tr>
                 <td>Category</td>
-                <td><input class="form-control" type='text' name='category' value='<?= $course_info['category']?>'/></td>
+                <td><input class="form-control" type='text' name='category' value='<?= $course_info['category']?>' required/></td>
             </tr>
 
 
@@ -51,7 +51,7 @@
 
             <tr>
                 <td>Start Time</td>
-                <td><input class="form-control" type='time' name='time1start' value='<?= $course_info['time1start']?>'/></td>
+                <td><input class="form-control" type='time' name='time1start' value='<?= $course_info['time1start']?>' required/></td>
             </tr>
 
 
@@ -59,7 +59,7 @@
 
             <tr>
                 <td>End Time</td>
-                <td><input class="form-control" type='time' name='time2start' value='<?= $course_info['time1end']?>'/></td>
+                <td><input class="form-control" type='time' name='time2start' value='<?= $course_info['time1end']?>' required/></td>
             </tr>
 
 
@@ -170,13 +170,11 @@
 
 
             <tr>
-                <td><input class="btn btn-warning" type='submit' name='editClass' value='Edit Class' /></td>
+                <td><input class="btn btn-warning" type='submit' name='editClass' value='Update' /></td>
             </tr>
 
 
 
-            <!-- get rid of this -->
-            <input type="hidden" name="comingfrom" value="edit">
 
 
 
