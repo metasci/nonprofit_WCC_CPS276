@@ -174,16 +174,16 @@ class User_model extends CI_Model
 
             if(isset($filterInfo['user_type'])){
                 if(isset($filterInfo['user_type']['admin']) && $filterInfo['user_type']['admin']){
-                    $this->db->where(array("permission REGEXP" => "1{1}\d{3}"));
+                    $this->db->where('permission RLIKE', "'^1{1}[0-1]{3}'", FALSE);
                 }
                 if(isset($filterInfo['user_type']['teacher']) && $filterInfo['user_type']['teacher']){
-                    $this->db->where(array("permission REGEXP" => "\d{1}1\d{2}"));
+                    $this->db->where('permission RLIKE', "'[0-1]{1}1[0-1]{2}'", FALSE);
                 }
                 if(isset($filterInfo['user_type']['parent']) && $filterInfo['user_type']['parent']){
-                    $this->db->where(array("permission REGEXP" => "\d{2}1\d{1}"));
+                    $this->db->where('permission RLIKE', "'[0-1]{2}1[0-1]{1}'", FALSE);
                 }
                 if(isset($filterInfo['user_type']['student']) && $filterInfo['user_type']['student']){
-                    $this->db->where(array("permission REGEXP" => "^\d{3}1"));
+                    $this->db->where('permission RLIKE', "'^[0-1]{3}1'", FALSE);
                 }
             }
 

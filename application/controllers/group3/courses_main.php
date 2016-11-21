@@ -72,7 +72,6 @@ class Courses_main extends CI_Controller
 
     }
 
-
     public function course_details(){
 
 
@@ -81,12 +80,13 @@ class Courses_main extends CI_Controller
             $course_id = $this->input->post('course_id');
 
             $data['course_info'] = (array)$this->course_model->get_one_course($course_id);
-
+            // print_r($data['course_info']);
             $filter['user_type']['teacher'] = 1;
-            $filter['user_id'] = $data['course_info']['teacher']; 
+            $filter['user_id'] = $data['course_info']['teacher'];
+            // print_r($filter);
             $data['teachers'] = $this->user_model->filterUsers($filter)[0];
 
-            print_r($data['teachers']);
+            // print_r($data['teachers']);
             $this->load->view('group1/templates/header');
             $this->load->view('group1/templates/navbar/navbar');
             $this->load->view('group3/course_details', $data);

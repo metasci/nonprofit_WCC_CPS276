@@ -19,6 +19,7 @@ class Browse_duties extends CI_Controller {
                 $this->showBrowseDuties();
 				$this->load->view('group1/templates/navbar/navbottom'); 
 				$this->load->view('group1/templates/footer'); 
+			
     }
 
     public function filteredIndex($data)

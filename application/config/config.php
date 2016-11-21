@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/Web_Dev_Class/MVC_NonProfit/';
+$config['base_url'] = 'http://hheducators.com/group1/';
 
 /*
 |--------------------------------------------------------------------------

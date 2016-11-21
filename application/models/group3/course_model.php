@@ -1,6 +1,6 @@
 <?php
 
-class course_model extends CI_Model
+class Course_model extends CI_Model
 {
 
     public function __construct()
@@ -77,7 +77,7 @@ class course_model extends CI_Model
         $this->db->where('id', $course_id);
 
         $query = $this->db->get('courses')->result();
-
+        // print_r($query);
         return $query[0];        
     }
 

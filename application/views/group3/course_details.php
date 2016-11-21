@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <td>Teacher</td>
-            <td><?php echo $teachers['first_name']." ".$teachers['last_name'];?></td>
+            <td><?php echo $teachers['first_name']." ".$teachers['last_name']; ?></td>
         </tr>
         <tr>
             <td>Category</td>

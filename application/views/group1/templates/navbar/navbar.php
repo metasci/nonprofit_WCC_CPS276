@@ -31,13 +31,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="<?php echo base_url() ?>">Dashboard<span class="sr-only">(current)</span></a></li>
+                    <li><a href="<?php echo base_url(); ?>">Dashboard<span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Gradebook</a></li>
                 </ul>
 
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo base_url('courses') ?>">Courses</a></li>
+                    <li><a href="<?php echo base_url('courses'); ?>">Courses</a></li>
                     <!-- this will be full of group specific links -->
                     <!--to be added on completion of entire project-->
                     <li class="dropdown">
