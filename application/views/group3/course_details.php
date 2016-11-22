@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td>Category</td>
-            <td><?php echo $course_info['category'];?></td>
+            <td><?php echo @$course_info['category']['category_name']; ?></td>
         </tr>
         <tr>
             <td>Description</td>

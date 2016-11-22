@@ -35,7 +35,13 @@
 
             <tr>
                 <td>Category</td>
-                <td><input class="form-control" type='text' name='category' value='<?= $course_info['category']?>' required/></td>
+                <td><?php echo '<select name="category" class="form-control" required>
+                    <option value="">(select a category)</option>';
+                    foreach ($categories as $cat) {
+                        echo "<option value=".$cat->CID.">".$cat->category_name."</option>";
+                    }
+                    echo '</select>';
+                ?></td>
             </tr>
 
 

@@ -8,7 +8,8 @@
     
     <!-- show add class button only if user is admin -->
     <?php if($user_permission[0]): ?>
-        <a class="btn btn-success" href='add-class'>Add Course</a>
+        <a class="btn btn-success" href='add_class'>Add Course</a>
+        <a class="btn btn-success" href='view_categories'>View Categories</a>
     <?php endif; ?>
 
     
@@ -61,7 +62,7 @@
                     <?php echo $row['teacher']; ?>
                 </td>
                 <td> 
-                    <?php echo $row['category']; ?>
+                    <?php echo @$row['category']['category_name']; ?>
                 </td> 
                 <td>
                     <?php echo $row['time1start']; ?>
