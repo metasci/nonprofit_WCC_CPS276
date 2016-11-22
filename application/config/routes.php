@@ -81,13 +81,18 @@ $route['reset_password/(:any)'] = 'group1/browse_users/reset_password/$1'; // ta
 // GROUP 3 ROUTES
 
 $route['courses'] = 'group3/courses_main/courses_dash';
-$route['add-class'] = 'group3/courses_main/add_class_page';
+$route['add_class'] = 'group3/courses_main/add_class_page';
 $route['save_new_class'] = 'group3/courses_main/save_new_class';
 $route['course_details'] = 'group3/courses_main/course_details';
 $route['course_edit'] = 'group3/courses_main/course_edit';
 $route['course_update'] = 'group3/courses_main/course_update';
 
 $route['course_delete'] = 'group3/courses_main/course_delete'; // use this for course_delete page
+
+$route['view_categories'] = 'group3/courses_main/view_categories';
+$route['add_category'] = 'group3/courses_main/add_category_page';
+$route['save_new_category'] = 'group3/courses_main/submit_category';
+$route['delete_category'] = 'group3/courses_main/delete_category';
 //***********************
 
 
