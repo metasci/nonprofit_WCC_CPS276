@@ -88,11 +88,11 @@ class Courses_main extends CI_Controller
                 redirect('courses');
             }
 
-  		} else { // else redirect to Login_controller
+	} else { // else redirect to Login_controller
 
-  			header('Location: login');
+		header('Location: login');
 
-  		}
+	}
     }
 
     // show add new course page
@@ -124,11 +124,11 @@ class Courses_main extends CI_Controller
                 redirect('courses');
             }
 
-    		} else { // else redirect to Login_controller
+	} else { // else redirect to Login_controller
 
-    			header('Location: login');
+		header('Location: login');
 
-    		}
+	}
     }
 
     public function save_new_class(){
@@ -137,6 +137,7 @@ class Courses_main extends CI_Controller
         redirect('courses');
 
     }
+
 
     public function course_details(){
 
@@ -215,27 +216,28 @@ class Courses_main extends CI_Controller
 		}
     }
 
-    public function course_update(){
-        if($this->session->logged_in){ // if logged in do
 
-            // check permission
-            if(str_split($this->user_model->getPermission($this->session->userID))[0]){
+    public function course_delete()
+    {
+        if($this->session->logged_in)
+        {
+            if(str_split($this->user_model->getPermission($this->session->userID))[0])
+            {
+                $id = $this->input->post("course_id");
 
-                // print_r($this->input->post());
+                //Delete Course From Courses
+                $this->db->where('id', $id);
+                $this->db->delete('courses');
 
-                $this->course_model->update_course($this->input->post());
-
-                redirect('courses');
-
-            } else {
-                redirect('courses');
+                redirect("courses");
+            }else {
+                redirect("courses");
             }
+        }else {
+            header('Location: login');
+        }
 
-		} else { // else redirect to Login_controller
 
-			header('Location: login');
-
-		}
     }
 
     public function view_categories(){
@@ -260,12 +262,37 @@ class Courses_main extends CI_Controller
                 redirect('courses');
             }
 
-		} else { // else redirect to Login_controller
+	} else { // else redirect to Login_controller
 
-			header('Location: login');
+		header('Location: login');
 
-		}
+	}
     }
+
+    
+    public function course_update(){
+        if($this->session->logged_in){ // if logged in do
+
+            // check permission
+            if(str_split($this->user_model->getPermission($this->session->userID))[0]){
+
+                // print_r($this->input->post());
+
+                $this->course_model->update_course($this->input->post());
+                
+                redirect('courses');
+                
+            } else {
+                redirect('courses');
+            }
+
+	} else { // else redirect to Login_controller
+
+		header('Location: login');
+
+	}
+    }
+
 
     public function delete_category(){
         // get CID
@@ -277,4 +304,7 @@ class Courses_main extends CI_Controller
         // redirect to view_categories
         redirect('view_categories');
     }
+
 }
+
+
