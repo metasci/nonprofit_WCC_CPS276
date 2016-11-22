@@ -3,16 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Courses_main extends CI_Controller
 {
-    
+
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('group3/course_model'); 
+        $this->load->model('group3/course_model');
         $this->load->model('group1_models/user_model');
     }
 
     public function courses_dash(){
-    
+
         // print_r($data['course_info']);
 
         if($this->session->logged_in){ // if logged in do
@@ -25,18 +25,18 @@ class Courses_main extends CI_Controller
             }
 
             $data['user_permission'] = str_split($this->user_model->getPermission($this->session->userID));
-            
+
             $this->load->view('group1/templates/header');
             $this->load->view('group1/templates/navbar/navbar');
             $this->load->view('group3/course_dash', $data);
-            $this->load->view('group1/templates/navbar/navbottom'); 
+            $this->load->view('group1/templates/navbar/navbottom');
             $this->load->view('group1/templates/footer');
 
-		
+
 		} else { // else redirect to Login_controller
 
 			header('Location: login');
-	
+
 		}
     }
 
@@ -47,23 +47,23 @@ class Courses_main extends CI_Controller
 
             // check permission
             if(str_split($this->user_model->getPermission($this->session->userID))[0]){
-                
+
                 $data['error'] = $error;
 
                 $this->load->view('group1/templates/header');
                 $this->load->view('group1/templates/navbar/navbar');
                 $this->load->view('group3/add_category', $data);
-                $this->load->view('group1/templates/navbar/navbottom'); 
-                $this->load->view('group1/templates/footer');    
+                $this->load->view('group1/templates/navbar/navbottom');
+                $this->load->view('group1/templates/footer');
 
             } else {
                 redirect('courses');
             }
-		
+
 		} else { // else redirect to Login_controller
 
 			header('Location: login');
-	
+
 		}
     }
 
@@ -77,28 +77,28 @@ class Courses_main extends CI_Controller
 
                 if($this->course_model->save_category($this->input->post("category_name"))){
                     // after successful save redirect to courses_dash
-                   redirect('view_categories'); 
+                   redirect('view_categories');
                 } else {
                     $this->add_category_page(TRUE);
                 }
 
-                
+
 
             } else {
                 redirect('courses');
             }
-		
-		} else { // else redirect to Login_controller
 
-			header('Location: login');
-	
-		}
+  		} else { // else redirect to Login_controller
+
+  			header('Location: login');
+
+  		}
     }
 
     // show add new course page
     public function add_class_page(){
 
-        
+
         if($this->session->logged_in){ // if logged in do
 
             // check permission
@@ -117,18 +117,18 @@ class Courses_main extends CI_Controller
                 $this->load->view('group1/templates/header');
                 $this->load->view('group1/templates/navbar/navbar');
                 $this->load->view('group3/add_class', $data);
-                $this->load->view('group1/templates/navbar/navbottom'); 
-                $this->load->view('group1/templates/footer');    
+                $this->load->view('group1/templates/navbar/navbottom');
+                $this->load->view('group1/templates/footer');
 
             } else {
                 redirect('courses');
             }
-		
-		} else { // else redirect to Login_controller
 
-			header('Location: login');
-	
-		}
+    		} else { // else redirect to Login_controller
+
+    			header('Location: login');
+
+    		}
     }
 
     public function save_new_class(){
@@ -161,28 +161,28 @@ class Courses_main extends CI_Controller
             $this->load->view('group1/templates/header');
             $this->load->view('group1/templates/navbar/navbar');
             $this->load->view('group3/course_details', $data);
-            $this->load->view('group1/templates/navbar/navbottom'); 
+            $this->load->view('group1/templates/navbar/navbottom');
             $this->load->view('group1/templates/footer');
 
-		
+
 		} else { // else redirect to Login_controller
 
 			header('Location: login');
-	
+
 		}
-        
+
     }
 
     public function course_edit(){
-        
+
         if($this->session->logged_in){ // if logged in do
 
-            
+
             // check permission
             if(str_split($this->user_model->getPermission($this->session->userID))[0]){
 
                 $course_id = $this->input->post('course_id');
-                
+
                 $data['categories'] = $this->course_model->get_categories();
                 $data['course_info'] = (array)$this->course_model->get_one_course($course_id);
 
@@ -201,9 +201,9 @@ class Courses_main extends CI_Controller
                 $this->load->view('group1/templates/header');
                 $this->load->view('group1/templates/navbar/navbar');
                 $this->load->view('group3/course_edit', $data);
-                $this->load->view('group1/templates/navbar/navbottom'); 
+                $this->load->view('group1/templates/navbar/navbottom');
                 $this->load->view('group1/templates/footer');
-                
+
             } else {
                 redirect('courses');
             }
@@ -211,7 +211,7 @@ class Courses_main extends CI_Controller
 		} else { // else redirect to Login_controller
 
 			header('Location: login');
-	
+
 		}
     }
 
@@ -224,17 +224,17 @@ class Courses_main extends CI_Controller
                 // print_r($this->input->post());
 
                 $this->course_model->update_course($this->input->post());
-                
+
                 redirect('courses');
-                
+
             } else {
                 redirect('courses');
             }
-            
+
 		} else { // else redirect to Login_controller
 
 			header('Location: login');
-	
+
 		}
     }
 
@@ -252,25 +252,25 @@ class Courses_main extends CI_Controller
                 $this->load->view('group1/templates/header');
                 $this->load->view('group1/templates/navbar/navbar');
                 $this->load->view('group3/view_categories', $data);
-                $this->load->view('group1/templates/navbar/navbottom'); 
+                $this->load->view('group1/templates/navbar/navbottom');
                 $this->load->view('group1/templates/footer');
 
-                
+
             } else {
                 redirect('courses');
             }
-            
+
 		} else { // else redirect to Login_controller
 
 			header('Location: login');
-	
+
 		}
     }
 
     public function delete_category(){
         // get CID
         $CID = $this->input->post('CID');
-        
+
         // delete from database
         $this->course_model->remove_category($CID);
 
@@ -278,5 +278,3 @@ class Courses_main extends CI_Controller
         redirect('view_categories');
     }
 }
-
-
