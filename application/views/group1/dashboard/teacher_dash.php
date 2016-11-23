@@ -18,37 +18,31 @@
                     </tr>
                     </thead>
                     <tbody>
-                    
+
                     <?php
-                    	foreach($results2 as $object) {
-                    		$cn = $object['course_name'];
+                    	foreach($results2 as $object) :
+
                     		echo "<tr>";
-                            // I don't understand why you have this form here. it is loading ./teacher_classes instead of triggering your modal'
-                    			echo "<form action='./teacher_classes' method='post' style='display: inline-block'>";
+                          echo "<form action='./index.php/browse_course_details' method='post' style='display: inline-block'>";
                     			echo 	"<td>" . $object['id'] . "</td>";
-								echo 	"<td>" . $object['course_name'] . "</td>";
-								echo 	"<td>";
-								echo 		"<button class='btn btn-primary' name='selection' data-toggle='modal' data-target='#class_details_modal' id='class_details'>Class Details</button>&nbsp";							
-								echo 		"<button class='btn btn-info'>Archive Course</button>";
-								echo 	"</td>";
-								echo "</form>";
-							echo "</tr>";
-						}
-					?>
-					
+          								echo 	"<td>" . $object['course_name'] . "</td>";
+          								echo 	"<td>";
+          								echo 		"<button class='btn btn-primary' name='selection' data-toggle='modal' data-target='#class_details_modal' id='class_details'>Course Details</button>&nbsp";
+
+                          echo  "<input type='hidden' name='course_id' value='" . $object['id'] . "'>";
+
+          								echo 	"</td>";
+          								echo "</form>";
+							          echo "</tr>";
+          						endforeach;
+          					?>
+
                     </tbody>
                 </table>
             </div>
         </div>
         <!-- Current Courses Panel END -->
 
-<div class="modal fade bs-example-modal-lg" tabindex="-1" id="class_details_modal" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div style="overflow: auto;" class="modal-content">
-        <?php include('application/views/group1/details/class_details.php'); ?>
-    </div>
-  </div>
-</div>
 
 
         <!-- we dont need this here. completed courses will become long -->

@@ -2,14 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
-	
+
 	public function __construct(){
-        parent::__construct(); 
+        parent::__construct();
         $this->load->model('group1_models/user_model'); // I can now access the User_model class ($this->User_model)
-		
+
 		$this->clearance = $this->user_model->getPermission($this->session->userID); // grab the users permission from the db and store it in clearance
 	}
-	
+
 
 	/**
 	 * Index Page for this controller.
@@ -29,19 +29,19 @@ class Welcome extends CI_Controller {
 	public function index() // add optional user first/last name parameter for appearace in navbar
 							// "Welcome, John Doe!"
 	{
-		// check sessions for login credentials 
+		// check sessions for login credentials
 		if($this->session->logged_in){ // if logged in show dashboard
 
 				$this->load->view('group1/templates/header');
 				$this->load->view('group1/templates/navbar/navbar');
 				$this->pickPage($this->input->post('selection')); // logic controlling which view is selected in $_POST['selection']
-				$this->load->view('group1/templates/navbar/navbottom'); 
+				$this->load->view('group1/templates/navbar/navbottom');
 				$this->load->view('group1/templates/footer');
 
 		} else { // else redirect to Login_controller
 
 			header('Location: login');
-	
+
 		}
 
 	}
@@ -57,7 +57,7 @@ class Welcome extends CI_Controller {
 				$this->showDash($this->clearance);
 				break;
             case 'register':
-				
+
 				// how do these work? if I remove the 'required' attribute from the
 				$this->form_validation->set_rules('fname', 'First Name', 'required');
 				$this->form_validation->set_rules('lname', 'Last Name', 'required');
@@ -96,30 +96,31 @@ class Welcome extends CI_Controller {
 		// print_r($data);
 		// render user $data to display in user_dash
 		$this->load->view('group1/dashboard/user_dash', $data);
-		
+
 		$data['dispButton'] = $button;
 
-		if($permArray[0]) 
+		if($permArray[0])
 			$this->load->view('group1/dashboard/admin_dash', $data);
 
 		if($permArray[1]) {
-		
+
 			// Load Teacher Classes Model
 			$this->load->model('group1_models/teacher_classes_model');
-			
-			// Get the array of current Course IDs being taught from course table 
+
+			// Get the array of current Course IDs being taught from course table
 			$data = $this->teacher_classes_model->get_current_classes($this->session->userID);
-			
+
 			// Separate the IDs into its own array
 			$myCourseIDsArr = explode(',', $data->current_courses);
 			//print_r($myCourseIDsArr);
-			
-			
+
+
 			// Using the IDs array, get all rows for each course ID from the model.
 			$data2['results2'] = $this->teacher_classes_model->get_course_info($myCourseIDsArr);
 
 			// Load the view and pass in the rows from $data2
 			$this->load->view('group1/dashboard/teacher_dash', $data2);
+			// $this->load->view('group1/dashboard/index', $data2);
 
 		}
 
@@ -128,14 +129,14 @@ class Welcome extends CI_Controller {
  			// print_r($userArray);
  			$this->load->view('group1/dashboard/parent_dash', array("userArray" => $userArray));
 		}
-		
+
 		if($permArray[3])
 			$this->load->view('group1/dashboard/student_dash');
 
 
 	}
 	// *******
-	
+
 
 
 	public function findFamily($userID){
@@ -155,16 +156,16 @@ class Welcome extends CI_Controller {
 
 
 		if(!$this->input->post('action') || $this->input->post('action') != 'addUser'){
-			
+
 			// display dependent registration pages
 			$this->showDependentReg($data);
-			
+
 		} else if($this->input->post('action') == 'addUser') {
 			//----------------------------------------
 			if(isset($data['post']['add_admin']) || isset($data['post']['add_Teacher']) || isset($data['post']['add_parent'])){
 				$this->form_validation->set_rules('email1', 'E-mail', 'required|trim|valid_email');
-			}			
-			
+			}
+
 			if($this->form_validation->run() == false){
 				// invalid form entry
 				$this->showDependentReg($data);
@@ -196,14 +197,14 @@ class Welcome extends CI_Controller {
 			if($this->input->post('add_teacher'))
 				$this->load->view('group1/registration/dependents/add_teacher');
 
-			
+
 			if($this->input->post('add_parent'))
 				$this->load->view('group1/registration/dependents/add_parent');
 
 
 			if($this->input->post('add_student'))
 				$this->load->view('group1/registration/dependents/add_student');
-				
+
 			//
 			$this->load->view('group1/registration/depend_add_bottom');
 			//

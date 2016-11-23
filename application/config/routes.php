@@ -71,6 +71,7 @@ $route['login'] = 'group1/login_controller';
 $route['login_validate'] = 'group1/login_controller/validateCredentials';
 $route['browse_duties'] = 'group1/browse_duties';
 $route['browse_users'] = 'group1/browse_users';
+$route['browse_course_details'] = 'group1/browse_courses/get_course_details'; //<== THIS ONE
 $route['details'] = 'group1/browse_users/userProfile';
 $route['teacher_classes'] = 'group1/teacher_classes';
 

@@ -2031,6 +2031,7 @@ class CI_Email {
 		stream_set_timeout($this->_smtp_connect, $this->smtp_timeout);
 		$this->_set_error_message($this->_get_smtp_data());
 
+		
 		if ($this->smtp_crypto === 'tls')
 		{
 			$this->_send_command('hello');
